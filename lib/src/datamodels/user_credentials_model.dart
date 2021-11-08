@@ -2,7 +2,7 @@ class UserCredentials {
   final int id;
   final String username;
   final String token;
-  UserCredentials({this.id, this.username, this.token});
+  UserCredentials({required this.id, required this.username, required this.token});
 
   UserCredentials.initial()
       : id = 0,

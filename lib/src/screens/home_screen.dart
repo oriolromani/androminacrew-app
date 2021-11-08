@@ -3,6 +3,7 @@ import 'package:andromina_crew_app/src/services/auth_service.dart';
 import 'package:andromina_crew_app/src/datamodels/tasks_model.dart';
 import 'package:andromina_crew_app/src/screens/drawer.dart';
 import 'package:andromina_crew_app/src/services/task_service.dart';
+import 'package:andromina_crew_app/src/screens/task_detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -59,6 +60,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                     onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TaskDetailScreen(task: task[index])
+                          ),
+                      );
                       print("Card Clicked named "+task[index].name);
                     },
                     child: Card(
@@ -68,8 +75,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Column(
                         children: [
                           ListTile(
-                            leading: Icon(Icons.warning,
-                              color: Colors.red,
+                            leading: Icon(Icons.flag_rounded,
+                              color: Colors.green,
                               size: 40,
                             ),
                             //onTap: () {},
@@ -77,7 +84,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             style: TextStyle(
                               fontSize: 20,
                             ),),
-                            subtitle: Text(task[index].start_date!=null?task[index].start_date as String:''),
+                            subtitle: Row(
+                              children:[
+                                Text(task[index].start_time!=null?task[index].start_time as String:''),
+                                Text('  -  '),
+                                Text(task[index].end_time!=null?task[index].end_time as String:''),
+                              ],
+                            ),
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
