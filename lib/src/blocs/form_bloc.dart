@@ -64,6 +64,9 @@ class FormBloc with ValidationMixin {
     } else {
       AuthService.setToken(data['token'], data['refreshToken']);
       Navigator.pushNamed(context, '/home');
+      //reset email & password to blank
+      _email.value="";
+      _password.value="";
       return data;
     }
   }
