@@ -9,7 +9,9 @@ class DateModel {
 
   static String formatDate(String s){
     DateTime date = DateTime.parse(s);
-    String date_formated = DateFormat('d/M/y').add_Hm().format(date).toString();
+    //String date_formated = DateFormat('d/M/y').add_Hm().format(date).toString();
+    //String date_formated = DateFormat('d/M/y').format(date).toString();
+    String date_formated = DateFormat.yMMMMd('en_US').format(date).toString();
     return date_formated;
   }
 
