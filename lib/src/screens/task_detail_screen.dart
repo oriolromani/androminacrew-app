@@ -74,19 +74,25 @@ class TaskDetailScreen extends StatelessWidget {
         child: Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
               Icon(Icons.access_time),
               Text(task.start_date),
-              Icon(Icons.arrow_forward,
-                size: 20),
               ],
             ),
             SizedBox(height: 20),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Icon(Icons.location_on),
+              ],
+            ),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Icon(Icons.radio_button_on),
+                Text(task.status)
               ],
             ),
             SizedBox(height: 50),

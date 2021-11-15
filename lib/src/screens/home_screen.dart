@@ -75,12 +75,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Column(
                         children: [
                           ListTile(
-                            leading: Icon(Icons.flag_rounded,
-                              color: Colors.green,
-                              size: 40,
-                            ),
+                            leading: StatusFlagWidget(task[index].status),
                             //onTap: () {},
-                            title: Text(task[index].name),
+                            title: Text(task[index].name + " - " + task[index].company,
                             style: TextStyle(
                               fontSize: 20,
                             ),),
@@ -111,6 +108,37 @@ class _HomeScreenState extends State<HomeScreen> {
         }
         return CircularProgressIndicator();
       },
+    );
+  }
+
+
+
+
+}
+
+Widget StatusFlagWidget(status) {
+  if (status == "proposed") {
+    //Status equal to Pending, return buttons for accept or refuse
+    return Icon(Icons.radio_button_on,
+      color: Colors.amber,
+      size: 40,
+    );
+  }else if(status == "confirmed"){
+    //Status equal to accepted, return buttons for time management
+    return Icon(Icons.radio_button_on,
+      color: Colors.green,
+      size: 40,
+    );
+  }else if(status == "rejected") {
+    //Status equal to accepted, return buttons for time management
+    return Icon(Icons.radio_button_on,
+      color: Colors.red,
+      size: 40,
+    );
+  }else{
+    return Icon(Icons.flag_rounded,
+      color: Colors.grey,
+      size: 40,
     );
   }
 }

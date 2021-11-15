@@ -17,7 +17,7 @@ class TaskService {
       'authorization': 'Token '+_token['token']
     }).timeout(const Duration(seconds: 15));
     if (response.statusCode == 200) {
-      List jsonResponse = json.decode(response.body);
+      List jsonResponse = json.decode(utf8.decode(response.bodyBytes));
       return jsonResponse.map((data) => new Task.fromJson(data)).toList();
     } else {
       throw Exception('Unexpected error occurred!');

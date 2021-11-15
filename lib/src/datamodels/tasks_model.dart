@@ -5,8 +5,8 @@ class Task {
   int id;
   String name;
   String start_date;
-  int company;
-  int status;
+  String company;
+  String status;
 
   Task(
       {required this.id,
