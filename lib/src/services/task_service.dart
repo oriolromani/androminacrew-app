@@ -18,7 +18,6 @@ class TaskService {
     }).timeout(const Duration(seconds: 15));
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
-      print(response.body);
       return jsonResponse.map((data) => new Task.fromJson(data)).toList();
     } else {
       throw Exception('Unexpected error occurred!');

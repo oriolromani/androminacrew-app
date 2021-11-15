@@ -77,10 +77,9 @@ class TaskDetailScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
               Icon(Icons.access_time),
-              Text(task.start_time),
+              Text(task.start_date),
               Icon(Icons.arrow_forward,
                 size: 20),
-              Text(task.end_time),
               ],
             ),
             SizedBox(height: 20),

@@ -80,15 +80,13 @@ class _HomeScreenState extends State<HomeScreen> {
                               size: 40,
                             ),
                             //onTap: () {},
-                            title: Text(task[index].name,
+                            title: Text(task[index].name),
                             style: TextStyle(
                               fontSize: 20,
                             ),),
                             subtitle: Row(
                               children:[
-                                Text(task[index].start_time!=null?task[index].start_time as String:''),
-                                Text('  -  '),
-                                Text(task[index].end_time!=null?task[index].end_time as String:''),
+                                Text(task[index].start_date!=null?task[index].start_date as String:''),
                               ],
                             ),
                           ),

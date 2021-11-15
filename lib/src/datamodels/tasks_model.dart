@@ -4,14 +4,16 @@ class Task {
   //final int id;
   int id;
   String name;
-  String start_time;
-  String end_time;
+  String start_date;
+  int company;
+  int status;
 
   Task(
       {required this.id,
         required this.name,
-        required this.start_time,
-        required this.end_time});
+        required this.start_date,
+        required this.company,
+        required this.status});
 /*
   Task.initial() :
         id = 0,
@@ -22,15 +24,17 @@ class Task {
   Task.fromJson(Map<String, dynamic> json) :
         id = json['id'],
         name = json['name'],
-        start_time = DateModel.formatDate(json['start_time']),
-        end_time = DateModel.formatDate(json['end_time']);
+        start_date = DateModel.formatDate(json['start_date']),
+        company = json['company'],
+        status = json['status'];
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['name'] = this.name;
-    data['start_time'] = this.start_time == null ? null : this.start_time.toString();
-    data['end_time'] = this.end_time == null ? null : this.end_time.toString();
+    data['start_date'] = this.start_date == null ? null : this.start_date.toString();
+    data['company'] = this.company;
+    data['status'] = this.status;
     return data;
   }
 }
