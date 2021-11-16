@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:andromina_crew_app/src/datamodels/tasks_model.dart';
+import 'package:andromina_crew_app/src/widgets/ConfirmTaskButtonWidget.dart';
 
 class TaskDetailScreen extends StatelessWidget {
   const TaskDetailScreen({Key? key, required this.task}) : super(key: key);
@@ -28,7 +29,7 @@ class TaskDetailScreen extends StatelessWidget {
             body: TabBarView(
                 children: [
                   Container(
-                    child: taskDetailWidget(),
+                    child: taskDetailWidget(task),
                   ),
                   Container(
                     alignment: Alignment.topCenter,
@@ -64,7 +65,7 @@ class TaskDetailScreen extends StatelessWidget {
         );
   }
 
-  Widget taskDetailWidget() {
+  Widget taskDetailWidget(Task task) {
     var status = task.status;
     return Container(
         color: Colors.grey,
@@ -88,7 +89,7 @@ class TaskDetailScreen extends StatelessWidget {
               ],
             ),
             SizedBox(height: 50),
-            TaskDetailButtonWidget(status)
+            TaskDetailButtonWidget(status, task)
           ],
         )
     );
@@ -120,13 +121,14 @@ class TaskDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget TaskDetailButtonWidget(status) {
+  Widget TaskDetailButtonWidget(status, task) {
     if (status == "proposed") {
       //Status equal to proposed, return buttons for accept or refuse
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          ConfirmButtonWidget(),
+
+          ConfirmTaskButtonWidget(task: task),
           RefuseButtonWidget(),
         ],
       );
@@ -163,11 +165,15 @@ class ConfirmButtonWidget extends StatelessWidget {
                   content: const Text('Are you sure?'),
                   actions: <Widget>[
                     TextButton(
-                      onPressed: () => Navigator.pop(context, 'Cancel'),
-                      child: const Text('Cancel'),
+                      onPressed: () => {
+                        Navigator.pop(context, 'Cancel'),
+                      },
+                    child: const Text('Cancel'),
                     ),
                     TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
+                      onPressed: () => {
+                        Navigator.pop(context, 'OK')
+                      },
                       child: const Text('OK'),
                     ),
                   ],

@@ -4,6 +4,7 @@ import 'package:andromina_crew_app/src/datamodels/tasks_model.dart';
 import 'package:andromina_crew_app/src/screens/drawer.dart';
 import 'package:andromina_crew_app/src/services/task_service.dart';
 import 'package:andromina_crew_app/src/screens/task_detail_screen.dart';
+import 'package:andromina_crew_app/src/screens/task_detail_screen_2.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
