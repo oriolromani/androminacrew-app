@@ -1,30 +1,44 @@
+import 'date_model.dart';
+
 class Task {
   //final int id;
-  final int id;
-  final String name;
-  final DateTime start_date;
-  final DateTime end_date;
+  String uid;
+  String name;
+  String start_date;
+  String company;
+  String status;
+  String user;
 
-  Task({required this.id, required this.name, required this.start_date, required this.end_date});
-
+  Task(
+      {required this.uid,
+        required this.name,
+        required this.start_date,
+        required this.company,
+        required this.status,
+        required this.user});
+/*
   Task.initial() :
         id = 0,
         name = '',
-        start_date = DateTime.now(),
-        end_date = DateTime.now();
-
+        start_date = DateModel(dateTime: DateTime.now()),
+        end_date = DateModel(dateTime: DateTime.now());
+*/
   Task.fromJson(Map<String, dynamic> json) :
-        id = json['id'],
+        uid = json['uid'],
         name = json['name'],
-        start_date = json['start_date'],
-        end_date = json['end_date'];
+        start_date = DateModel.formatDate(json['start_date']),
+        company = json['company'],
+        status = json['status'],
+        user = json['user'];
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
+    data['uid'] = this.uid;
     data['name'] = this.name;
-    data['start_date'] = this.start_date;
-    data['end_date'] = this.end_date;
+    data['start_date'] = this.start_date == null ? null : this.start_date.toString();
+    data['company'] = this.company;
+    data['status'] = this.status;
+    data['user'] = this.user;
     return data;
   }
 }

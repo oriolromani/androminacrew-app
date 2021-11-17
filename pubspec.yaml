@@ -37,6 +37,7 @@ dependencies:
   rxdart: ^0.24.0
   http: ^0.13.4
   flutter_session: ^0.1.1
+  intl: ^0.16.1
 
 dev_dependencies:
   flutter_test:
