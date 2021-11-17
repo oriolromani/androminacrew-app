@@ -5,3 +5,5 @@ build/
 .packages
 .pubspec.lock
 .DS_Store
+.packages
+.pubspec.lock
