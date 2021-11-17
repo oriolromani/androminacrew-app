@@ -9,9 +9,43 @@ import 'package:intl/intl.dart';
 class TaskService {
   static final SESSION = FlutterSession();
 
-  Future <List<Task>> getTask() async {
+  Future <List<Task>> getAllTask() async {
     dynamic _token = await FlutterSession().get("tokens");
     String url = Api.baseUrl+'/tasks/';
+    var response = await http.get(Uri.parse(url), headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "Access-Control-Allow-Origin": "*",
+      'authorization': 'Token '+_token['token']
+    }).timeout(const Duration(seconds: 15));
+    if (response.statusCode == 200) {
+      List jsonResponse = json.decode(utf8.decode(response.bodyBytes));
+      return jsonResponse.map((data) => new Task.fromJson(data)).toList();
+    } else {
+      throw Exception('Unexpected error occurred!');
+    }
+  }
+
+  Future <List<Task>> getFutureTask() async {
+    dynamic _token = await FlutterSession().get("tokens");
+    var formatter = new DateFormat('yyyy-MM-dd');
+    String url = Api.baseUrl+'/tasks/?start_date__gte='+formatter.format(DateTime.now());
+    var response = await http.get(Uri.parse(url), headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "Access-Control-Allow-Origin": "*",
+      'authorization': 'Token '+_token['token']
+    }).timeout(const Duration(seconds: 15));
+    if (response.statusCode == 200) {
+      List jsonResponse = json.decode(utf8.decode(response.bodyBytes));
+      return jsonResponse.map((data) => new Task.fromJson(data)).toList();
+    } else {
+      throw Exception('Unexpected error occurred!');
+    }
+  }
+
+  Future <List<Task>> getTodayTask() async {
+    dynamic _token = await FlutterSession().get("tokens");
+    var formatter = new DateFormat('yyyy-MM-dd');
+    String url = Api.baseUrl+'/tasks/?start_date='+formatter.format(DateTime.now())+'&status=2';
     var response = await http.get(Uri.parse(url), headers: {
       "Content-Type": "application/json; charset=utf-8",
       "Access-Control-Allow-Origin": "*",

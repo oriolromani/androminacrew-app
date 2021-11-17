@@ -12,15 +12,18 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   Future<List<Task>>? futureTask;
+  Future<List<Task>>? todayTask;
 
   @override
   void initState(){
     super.initState();
-    futureTask = TaskService().getTask();
+    futureTask = TaskService().getFutureTask();
   }
 
   @override
   Widget build(BuildContext context) {
+    futureTask = TaskService().getFutureTask();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Events',
@@ -42,15 +45,15 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             )
         ),
-        child: taskWidget(),
+        child: taskWidget(futureTask)
+
       ),
       drawer: MyDrawer(),
     );
   }
 
-  Widget taskWidget() {
-    futureTask = TaskService().getTask();
-    return FutureBuilder <List<Task>>(
+  Widget taskWidget(futureTask) {
+      return FutureBuilder <List<Task>>(
       future: futureTask,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
