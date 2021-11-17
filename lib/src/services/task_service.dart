@@ -31,10 +31,8 @@ class TaskService {
     DateTime date = format.parse(task.start_date);
     task.start_date = DateFormat("yyyy-MM-dd").format(date);
     var body = json.encode(task.toJson());
-    print(body);
     dynamic _token = await FlutterSession().get("tokens");
     String url = Api.baseUrl+'/tasks/'+task.uid.toString();
-    print(url);
     var response = await http.put(Uri.parse(url),
         headers: {
           "Content-Type": "application/json",
@@ -42,7 +40,29 @@ class TaskService {
         },
         body: body)
         .timeout(const Duration(seconds: 15));
-    print(response.body);
+    if (response.statusCode == 200) {
+      return Task.fromJson(
+          json.decode(utf8.decode(response.bodyBytes)));
+    } else {
+      return 'ERROR: Could not update the status';
+    }
+  }
+
+  Future<dynamic> rejectTask(Task task) async {
+    task.status='rejected';
+    DateFormat format = new DateFormat("MMMM dd, yyyy");
+    DateTime date = format.parse(task.start_date);
+    task.start_date = DateFormat("yyyy-MM-dd").format(date);
+    var body = json.encode(task.toJson());
+    dynamic _token = await FlutterSession().get("tokens");
+    String url = Api.baseUrl+'/tasks/'+task.uid.toString();
+    var response = await http.put(Uri.parse(url),
+        headers: {
+          "Content-Type": "application/json",
+          'authorization': 'Token '+_token['token']
+        },
+        body: body)
+        .timeout(const Duration(seconds: 15));
     if (response.statusCode == 200) {
       return Task.fromJson(
           json.decode(utf8.decode(response.bodyBytes)));

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:andromina_crew_app/src/datamodels/tasks_model.dart';
 import 'package:andromina_crew_app/src/widgets/ConfirmTaskButtonWidget.dart';
+import 'package:andromina_crew_app/src/widgets/RejectTaskButtonWidget.dart';
 
 class TaskDetailScreen extends StatelessWidget {
   const TaskDetailScreen({Key? key, required this.task}) : super(key: key);
@@ -73,6 +74,7 @@ class TaskDetailScreen extends StatelessWidget {
         padding: EdgeInsets.all(50),
         child: Column(
           children: [
+            StatusBarWidget(task.status),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -85,7 +87,7 @@ class TaskDetailScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Icon(Icons.radio_button_on),
-                Text(" "+task.status)
+                Text(" "+task.company)
               ],
             ),
             SizedBox(height: 50),
@@ -120,6 +122,54 @@ class TaskDetailScreen extends StatelessWidget {
         )
     );
   }
+  Widget StatusBarWidget(status) {
+    if (status == "confirmed") {
+      return Container(
+          decoration: BoxDecoration(
+              color: Colors.lightGreen,
+              borderRadius: BorderRadius.all(Radius.circular(20))
+          ),
+          alignment: Alignment.topCenter,
+          padding: EdgeInsets.all(10),
+          margin: EdgeInsets.fromLTRB(0,0,0,20),
+          child: Column(
+            children: [
+              Text("CONFIRMED")
+            ],
+          )
+      );
+    }else if (status == "proposed"){
+      return Container(
+          decoration: BoxDecoration(
+              color: Colors.amber,
+              borderRadius: BorderRadius.all(Radius.circular(20))
+          ),
+          alignment: Alignment.topCenter,
+          padding: EdgeInsets.all(10),
+          margin: EdgeInsets.fromLTRB(0,0,0,20),
+          child: Column(
+            children: [
+              Text("PROPOSED")
+            ],
+          )
+      );
+    }else{
+      return Container(
+          decoration: BoxDecoration(
+              color: Colors.red,
+              borderRadius: BorderRadius.all(Radius.circular(20))
+          ),
+          alignment: Alignment.topCenter,
+          padding: EdgeInsets.all(10),
+          margin: EdgeInsets.fromLTRB(0,0,0,20),
+          child: Column(
+            children: [
+              Text("REJECTED")
+            ],
+          )
+      );
+    }
+  }
 
   Widget TaskDetailButtonWidget(status, task) {
     if (status == "proposed") {
@@ -129,7 +179,7 @@ class TaskDetailScreen extends StatelessWidget {
         children: [
 
           ConfirmTaskButtonWidget(task: task),
-          RefuseButtonWidget(),
+          RejectTaskButtonWidget(task: task),
         ],
       );
     }else if(status == "confirmed"){
@@ -150,83 +200,6 @@ class TaskDetailScreen extends StatelessWidget {
 
 }
 
-class ConfirmButtonWidget extends StatelessWidget {
-  const ConfirmButtonWidget({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: () =>
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('You are about to ACCEPT a proposal'),
-                  content: const Text('Are you sure?'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => {
-                        Navigator.pop(context, 'Cancel'),
-                      },
-                    child: const Text('Cancel'),
-                    ),
-                    TextButton(
-                      onPressed: () => {
-                        Navigator.pop(context, 'OK')
-                      },
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-          ),
-      child: Container(
-        decoration: BoxDecoration(
-            color: Colors.lightGreen,
-            borderRadius: BorderRadius.all(Radius.circular(20))
-        ),
-        child: Icon(Icons.check,
-            size:100),
-      ),
-    );
-  }
-}
-
-class RefuseButtonWidget extends StatelessWidget {
-  const RefuseButtonWidget({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: () =>
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('You are about to REFUSE a proposal'),
-                  content: const Text('Are you sure?'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'Cancel'),
-                      child: const Text('Cancel'),
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-          ),
-      child: Container(
-        decoration: BoxDecoration(
-            color: Colors.red,
-            borderRadius: BorderRadius.all(Radius.circular(20))
-        ),
-        child: Icon(Icons.close_rounded,
-            size:100),
-      ),
-    );
-  }
-}
 
 class TimeButtonWidget extends StatelessWidget {
   const TimeButtonWidget({Key? key}) : super(key: key);

@@ -50,6 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget taskWidget() {
+    futureTask = TaskService().getTask();
     return FutureBuilder <List<Task>>(
       future: futureTask,
       builder: (context, snapshot) {
