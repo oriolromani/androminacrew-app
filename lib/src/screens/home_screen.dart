@@ -61,6 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
           return
             ListView.builder(
                 itemCount: task.length,
+                physics: const AlwaysScrollableScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                     onTap: () {

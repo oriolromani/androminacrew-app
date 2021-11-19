@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:andromina_crew_app/src/datamodels/tasks_model.dart';
 import 'package:andromina_crew_app/src/widgets/ConfirmTaskButtonWidget.dart';
 import 'package:andromina_crew_app/src/widgets/RejectTaskButtonWidget.dart';
+import 'package:andromina_crew_app/src/widgets/TimeWorkButtonWidget.dart';
+import 'package:andromina_crew_app/src/widgets/FakeTimeWorkButtonWidget.dart';
+import 'package:intl/intl.dart';
 
 class TaskDetailScreen extends StatelessWidget {
   const TaskDetailScreen({Key? key, required this.task}) : super(key: key);
@@ -172,6 +175,8 @@ class TaskDetailScreen extends StatelessWidget {
   }
 
   Widget TaskDetailButtonWidget(status, task) {
+    //var format = DateFormat("yyyy-MM-dd");
+    var today = DateFormat.yMMMMd('en_US').format(DateTime.now()).toString();
     if (status == "proposed") {
       //Status equal to proposed, return buttons for accept or refuse
       return Row(
@@ -184,56 +189,24 @@ class TaskDetailScreen extends StatelessWidget {
       );
     }else if(status == "confirmed"){
       //Status equal to confirmed, return buttons for time management
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          TimeButtonWidget(),
-        ],
-      );
+      if (task.start_date == today){
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            TimeWorkButtonWidget(task: task),
+          ],
+        );
+      }else{
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            FakeTimeWorkButtonWidget(),
+          ],
+        );
+      }
     }else {
       //Status equal to refused, return no buttons
       return Row();
     }
-  }
-
-  /// This is the stateless widget that the main application instantiates.
-
-}
-
-
-class TimeButtonWidget extends StatelessWidget {
-  const TimeButtonWidget({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: () =>
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('You are about to Enter a Time'),
-                  content: const Text('Are you sure?'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'Cancel'),
-                      child: const Text('Cancel'),
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-          ),
-      child: Container(
-        decoration: BoxDecoration(
-            color: Colors.orange,
-            borderRadius: BorderRadius.all(Radius.circular(20))
-        ),
-        child: Icon(Icons.access_time,
-            size:100),
-      ),
-    );
   }
 }
