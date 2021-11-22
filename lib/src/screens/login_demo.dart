@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 import '../mixins/validation_mixin.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreenOld extends StatefulWidget {
   createState() {
     return _LoginScreen();
   }
 }
 
-class _LoginScreen extends State<LoginScreen> with ValidationMixin {
+class _LoginScreenOld extends State<LoginScreenOld> with ValidationMixin {
   final _formKey = GlobalKey<FormState>();
   String email = "";
   String password = "";
@@ -17,23 +17,25 @@ class _LoginScreen extends State<LoginScreen> with ValidationMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black12,
-      body: Container(
-        margin: EdgeInsets.only(top: 300.0, left: 30.0, right: 30.0),
-        child: Form(
-          key: _formKey,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: <Widget>[
-                emailField(),
-                passwordField(),
-                checkbox(),
-                button(),
-              ],
+      body: SingleChildScrollView(
+        child:Container(
+          margin: EdgeInsets.only(top: 300.0, left: 30.0, right: 30.0),
+          child: Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: <Widget>[
+                  emailField(),
+                  passwordField(),
+                  checkbox(),
+                  button(),
+                ],
+              ),
             ),
           ),
         ),
-      ),
+      )
     );
   }
 
