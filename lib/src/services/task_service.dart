@@ -28,7 +28,7 @@ class TaskService {
   Future <List<Task>> getFutureTask() async {
     dynamic _token = await FlutterSession().get("tokens");
     var formatter = new DateFormat('yyyy-MM-dd');
-    String url = Api.baseUrl+'/tasks/?start_date__gte='+formatter.format(DateTime.now());
+    String url = Api.baseUrl+'/tasks/?start_date__gte='+formatter.format(DateTime.now())+'&ordering=start_date';
     var response = await http.get(Uri.parse(url), headers: {
       "Content-Type": "application/json; charset=utf-8",
       "Access-Control-Allow-Origin": "*",
@@ -45,7 +45,7 @@ class TaskService {
   Future <List<Task>> getOldTask() async {
     dynamic _token = await FlutterSession().get("tokens");
     var formatter = new DateFormat('yyyy-MM-dd');
-    String url = Api.baseUrl+'/tasks/?start_date__lt='+formatter.format(DateTime.now());
+    String url = Api.baseUrl+'/tasks/?start_date__lt='+formatter.format(DateTime.now())+'&ordering=-start_date';
     var response = await http.get(Uri.parse(url), headers: {
       "Content-Type": "application/json; charset=utf-8",
       "Access-Control-Allow-Origin": "*",
