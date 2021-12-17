@@ -5,28 +5,27 @@ import 'package:andromina_crew_app/src/screens/drawer.dart';
 import 'package:andromina_crew_app/src/services/task_service.dart';
 import 'package:andromina_crew_app/src/screens/task_detail_screen.dart';
 
-class HomeScreen extends StatefulWidget {
+class OldTaskScreen extends StatefulWidget {
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _OldTaskScreenState createState() => _OldTaskScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _OldTaskScreenState extends State<OldTaskScreen> {
   Future<List<Task>>? futureTask;
-  Future<List<Task>>? todayTask;
 
   @override
   void initState(){
     super.initState();
-    futureTask = TaskService().getFutureTask();
+    futureTask = TaskService().getOldTask();
   }
 
   @override
   Widget build(BuildContext context) {
-    futureTask = TaskService().getFutureTask();
+    futureTask = TaskService().getOldTask();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Events',
+        title: Text('Historical',
         style: TextStyle(
           color: Colors.black,
         ),
@@ -76,11 +75,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Card(
                       margin: EdgeInsets.fromLTRB(16, 16, 16, 0),
                       elevation: 4.0,
-                      color: Colors.white,
+                      color: Colors.amber[100],
                       child: Column(
                         children: [
                           ListTile(
-                            leading: StatusFlagWidget(task[index].status),
+                            //leading: StatusFlagWidget(task[index].status),
+                            /*leading: Icon(Icons.check_circle,
+                            color: Colors.green,
+                            size: 40),*/
                             //onTap: () {},
                             title: Text(task[index].name + " - " + task[index].company,
                             style: TextStyle(
@@ -124,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
 }
-
+/*
 Widget StatusFlagWidget(status) {
   if (status == "proposed") {
     //Status equal to Pending, return buttons for accept or refuse
@@ -151,3 +153,4 @@ Widget StatusFlagWidget(status) {
     );
   }
 }
+*/

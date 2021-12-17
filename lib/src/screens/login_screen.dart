@@ -13,43 +13,46 @@ class LoginScreen extends StatelessWidget {
     final FormBloc formBloc = Provider.of(context);
 
     return Scaffold(
+      backgroundColor: Colors.red[200],
       body: Center(
-        child: Container(
-          margin: EdgeInsets.only(top: 100.0, left: 50.0, right: 50.0),
-          height: 550.0,
-          child: Form(
-            child: Column(
-              children: <Widget>[
-                _emailField(formBloc),
-                _passwordField(formBloc),
-                Container(
-                  width: 300,
-                  height: 35,
-                  child: Helper().errorMessage(formBloc),
-                ),
-                _checkBox(),
-                _buttonField(formBloc),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: () =>
-                          Navigator.pushNamed(context, '/forgot_password'),
-                      child: Container(
-                        child: Text('Forgot password?'),
-                        alignment: Alignment.bottomLeft,
+        child: SingleChildScrollView(
+          child: Container(
+            margin: EdgeInsets.only(top: 100.0, left: 50.0, right: 50.0),
+            height: 550.0,
+            child: Form(
+              child: Column(
+                children: <Widget>[
+                  _emailField(formBloc),
+                  _passwordField(formBloc),
+                  Container(
+                    width: 300,
+                    height: 35,
+                    child: Helper().errorMessage(formBloc),
+                  ),
+                  _checkBox(),
+                  _buttonField(formBloc),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: () =>
+                            Navigator.pushNamed(context, '/forgot_password'),
+                        child: Container(
+                          child: Text('Forgot password?'),
+                          alignment: Alignment.bottomLeft,
+                        ),
                       ),
-                    ),
-                    GestureDetector(
-                      onTap: () => Navigator.pushNamed(context, '/signup'),
-                      child: Container(
-                        child: Text('Register'),
-                        alignment: Alignment.bottomLeft,
+                      GestureDetector(
+                        onTap: () => Navigator.pushNamed(context, '/signup'),
+                        child: Container(
+                          child: Text('Register'),
+                          alignment: Alignment.bottomLeft,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -64,8 +67,8 @@ class LoginScreen extends StatelessWidget {
           return TextField(
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
-              hintText: 'you@example.com',
-              labelText: 'Email',
+              hintText: 'user',
+              labelText: 'User',
               errorText: snapshot.error as String,
             ),
             onChanged: bloc.changeEmail,
