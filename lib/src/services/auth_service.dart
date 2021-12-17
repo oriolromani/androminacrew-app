@@ -17,10 +17,12 @@ class AuthService {
       //String url = 'https://andromina-crew.herokuapp.com/users/api-token-auth/';
       //String url = 'http://andromina-crew.herokuapp.com/users/detail/';
       String url = Api.baseUrl+'/users/api-token-auth/';
+      print("im' here");
       var response = await http.post(Uri.parse(url), headers: {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": "*",
       }, body: body).timeout(const Duration(seconds: 15));
+      print(response.body);
        if (response.statusCode == 200) {
         return response.body;
       } else {

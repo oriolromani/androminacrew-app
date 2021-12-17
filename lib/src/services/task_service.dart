@@ -124,4 +124,26 @@ class TaskService {
     }
   }
 
+  Future<dynamic> createWorkTime(Task task, String time) async {
+    Map data = {
+      'end_time': time
+    };
+    var body = json.encode(data);
+    dynamic _token = await FlutterSession().get("tokens");
+    String url = Api.baseUrl+'/tasks/'+task.uid.toString()+'/work-time-creation/';
+    var response = await http.post(Uri.parse(url),
+        headers: {
+          "Content-Type": "application/json",
+          'authorization': 'Token '+_token['token']
+        },
+        body: body)
+        .timeout(const Duration(seconds: 15));
+    if (response.statusCode == 200) {
+      return Task.fromJson(
+          json.decode(utf8.decode(response.bodyBytes)));
+    } else {
+      return 'ERROR: Could not update the status';
+    }
+  }
+
 }
