@@ -1,7 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:andromina_crew_app/src/services/task_service.dart';
 import 'package:andromina_crew_app/src/datamodels/tasks_model.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class TimeWorkButtonWidget extends StatefulWidget {
   const TimeWorkButtonWidget({Key? key, required this.task}) : super(key: key);
@@ -12,47 +13,21 @@ class TimeWorkButtonWidget extends StatefulWidget {
 }
 
 class _TimeWorkButtonWidgetState extends State<TimeWorkButtonWidget> {
+  TimeOfDay initialTime = TimeOfDay.now();
+  DateTime initialDate = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () {
-        DatePicker.showTime12hPicker(context, showTitleActions: true,
-            onChanged: (date) {
-              print('change $date in time zone ' +
-                  date.timeZoneOffset.inHours.toString());
-            }, onConfirm: (date) {
-              print('confirm $date');
-              TaskService().createWorkTime(widget.task, date.toString());
-            }, currentTime: DateTime.now());
-      },
-
-          /*
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('You are about to ENTER a time'),
-                  content: const Text('Are you sure?'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => {
-                        Navigator.pop(context, 'Cancel'),
-                      },
-                      child: const Text('Cancel'),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        setState(() {
-                          //TaskService().rejectTask(widget.task);
-                          Navigator.pop(context, 'ok');
-                        });
-                      },
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-          ),
-          */
+      onPressed: () async{
+        TimeOfDay? pickedTime = await showTimePicker(context: context,
+            initialEntryMode: TimePickerEntryMode.input,
+            initialTime: initialTime);
+        if (pickedTime != null){
+          final now = new DateTime.now();
+          final pickedDate = new DateTime(now.year,now.month, now.day, pickedTime.hour, pickedTime.minute);
+          TaskService().createWorkTime(widget.task, pickedDate.toString());
+        }},
       child: Container(
         decoration: BoxDecoration(
             color: Colors.orange,
