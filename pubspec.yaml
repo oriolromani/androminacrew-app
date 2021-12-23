@@ -38,6 +38,7 @@ dependencies:
   http: ^0.13.4
   flutter_session: ^0.1.1
   intl: ^0.16.1
+  time_range_picker: ^2.1.0
 
 dev_dependencies:
   flutter_test:
