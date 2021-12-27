@@ -29,6 +29,13 @@ class MyDrawer extends StatelessWidget{
             },
           ),
           ListTile(
+            title: const Text('Calendar'),
+            onTap: () {
+              // Update the state of the app
+              Navigator.pushNamed(context, '/calendar');
+            },
+          ),
+          ListTile(
             title: const Text('Credentials'),
             onTap: () {
               Navigator.pushNamed(context, '/credentials');
