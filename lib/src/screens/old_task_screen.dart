@@ -3,7 +3,7 @@ import 'package:andromina_crew_app/src/services/auth_service.dart';
 import 'package:andromina_crew_app/src/datamodels/tasks_model.dart';
 import 'package:andromina_crew_app/src/screens/drawer.dart';
 import 'package:andromina_crew_app/src/services/task_service.dart';
-import 'package:andromina_crew_app/src/screens/task_detail_screen.dart';
+import 'package:andromina_crew_app/src/screens/task_detail_screen_1.dart';
 
 class OldTaskScreen extends StatefulWidget {
   @override
@@ -67,7 +67,7 @@ class _OldTaskScreenState extends State<OldTaskScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => TaskDetailScreen(task: task[index])
+                              builder: (context) => TaskDetailScreen1(task: task[index])
                           ),
                       );
                       print("Card Clicked named "+task[index].name);

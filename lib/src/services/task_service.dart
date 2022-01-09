@@ -25,6 +25,22 @@ class TaskService {
     }
   }
 
+  Future <Task> getTask(String id) async {
+    dynamic _token = await FlutterSession().get("tokens");
+    String url = Api.baseUrl+'/tasks/'+id;
+    var response = await http.get(Uri.parse(url), headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "Access-Control-Allow-Origin": "*",
+      'authorization': 'Token '+_token['token']
+    }).timeout(const Duration(seconds: 15));
+    if (response.statusCode == 200) {
+      var task = Task.fromJson(json.decode(utf8.decode(response.bodyBytes)));
+      return task;
+    } else {
+      throw Exception('Unexpected error occurred!');
+    }
+  }
+
   Future <List<Task>> getFutureTask() async {
     dynamic _token = await FlutterSession().get("tokens");
     var formatter = new DateFormat('yyyy-MM-dd');
@@ -116,6 +132,31 @@ class TaskService {
         },
         body: body)
         .timeout(const Duration(seconds: 15));
+    if (response.statusCode == 200) {
+      return Task.fromJson(
+          json.decode(utf8.decode(response.bodyBytes)));
+    } else {
+      return 'ERROR: Could not update the status';
+    }
+  }
+
+  Future<dynamic> createWorkTime(Task task, String startTime, String endTime) async {
+    Map data = {
+      'start_time':  startTime,
+      'end_time': endTime,
+    };
+    var body = json.encode(data);
+    print(body);
+    dynamic _token = await FlutterSession().get("tokens");
+    String url = Api.baseUrl+'/tasks/'+task.uid.toString()+'/work-time-creation/';
+    var response = await http.post(Uri.parse(url),
+        headers: {
+          "Content-Type": "application/json",
+          'authorization': 'Token '+_token['token']
+        },
+        body: body)
+        .timeout(const Duration(seconds: 15));
+    print(response.body);
     if (response.statusCode == 200) {
       return Task.fromJson(
           json.decode(utf8.decode(response.bodyBytes)));

@@ -3,7 +3,7 @@ import 'package:andromina_crew_app/src/services/auth_service.dart';
 import 'package:andromina_crew_app/src/datamodels/tasks_model.dart';
 import 'package:andromina_crew_app/src/screens/drawer.dart';
 import 'package:andromina_crew_app/src/services/task_service.dart';
-import 'package:andromina_crew_app/src/screens/task_detail_screen.dart';
+import 'package:andromina_crew_app/src/screens/task_detail_screen_1.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -58,56 +58,67 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<Task> task = snapshot.data as List<Task>;
-          return
-            ListView.builder(
-                itemCount: task.length,
-                physics: const AlwaysScrollableScrollPhysics(),
-                itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.push(
+          if(task.length==0){
+            return Container(
+                alignment: Alignment.center,
+                child: Text("No future tasks yet")
+            );
+          }else {
+            return
+              ListView.builder(
+                  itemCount: task.length,
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  itemBuilder: (BuildContext context, int index) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => TaskDetailScreen(task: task[index])
+                              builder: (context) =>
+                                  TaskDetailScreen1(task: task[index])
                           ),
-                      );
-                      print("Card Clicked named "+task[index].name);
-                    },
-                    child: Card(
-                      margin: EdgeInsets.fromLTRB(16, 16, 16, 0),
-                      elevation: 4.0,
-                      color: Colors.white,
-                      child: Column(
-                        children: [
-                          ListTile(
-                            leading: StatusFlagWidget(task[index].status),
-                            //onTap: () {},
-                            title: Text(task[index].name + " - " + task[index].company,
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),),
-                            subtitle: Row(
-                              children:[
-                                Text(task[index].start_date!=null?task[index].start_date as String:''),
-                              ],
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Icon(Icons.add_circle_rounded,
-                                size: 30,
-                                color: Colors.redAccent[100],
+                        );
+                        print("Card Clicked named " + task[index].name);
+                      },
+                      child: Card(
+                        margin: EdgeInsets.fromLTRB(16, 16, 16, 0),
+                        elevation: 4.0,
+                        color: Colors.white,
+                        child: Column(
+                          children: [
+                            ListTile(
+                              leading: StatusFlagWidget(task[index].status),
+                              //onTap: () {},
+                              title: Text(
+                                task[index].name + " - " + task[index].company,
+                                style: TextStyle(
+                                  fontSize: 20,
+                                ),),
+                              subtitle: Row(
+                                children: [
+                                  Text(task[index].start_date != null
+                                      ? task[index].start_date as String
+                                      : ''),
+                                ],
                               ),
-                              SizedBox(width: 8),
-                            ],
-                          )
-                        ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Icon(Icons.add_circle_rounded,
+                                  size: 30,
+                                  color: Colors.redAccent[100],
+                                ),
+                                SizedBox(width: 8),
+                              ],
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                }
-            );
+                    );
+                  }
+              );
+          }
         } else if (snapshot.hasError) {
           return Text("${snapshot.error}");
         }
