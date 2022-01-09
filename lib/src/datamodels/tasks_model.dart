@@ -1,5 +1,6 @@
 import 'date_model.dart';
 import 'task_times_model.dart';
+import 'task_time_model.dart';
 import 'dart:convert';
 
 class Task {
@@ -11,7 +12,7 @@ class Task {
   String status;
   String user;
   List<TaskTimesModel> times;
-  int time;
+  TaskTimeModel time;
 
 
   Task(
@@ -38,7 +39,7 @@ class Task {
         status = json['status'],
         user = json['user'],
         times = (json['times'] as List).map((e) => TaskTimesModel.fromJson(e)).toList(),
-        time = json['time'];
+        time = TaskTimeModel.fromJson(json['time']);
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();

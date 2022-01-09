@@ -6,6 +6,7 @@ import 'package:andromina_crew_app/src/screens/login_screen.dart';
 import 'package:andromina_crew_app/src/screens/signup_screen.dart';
 import 'package:andromina_crew_app/src/screens/credentials_screen.dart';
 import 'package:andromina_crew_app/src/screens/old_task_screen.dart';
+import 'package:andromina_crew_app/src/screens/caledar_screen.dart';
 import 'package:andromina_crew_app/src/screens/task_detail_screen.dart';
 import 'package:andromina_crew_app/src/services/auth_service.dart';
 
@@ -34,6 +35,7 @@ class App extends StatelessWidget {
           '/signup': (_) => new SignupScreen(),
           '/forgot_password': (_) => new ForgotPassword(),
           '/credentials': (_) => new CredentialsScreen(),
+          '/calendar': (_) => new CalendarScreen(),
           //'/task_detail': (_) => new TaskDetailScreen(),
         },
       ),

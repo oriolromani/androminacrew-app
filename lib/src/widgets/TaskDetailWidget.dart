@@ -32,7 +32,7 @@ Widget taskDetailWidget(Task task, Function refresh) {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Icon(Icons.alarm),
-              Text("Worked Time: "+(task.time).toString()+" minutes")
+              Text("Worked Time: "+(task.time.hours).toString()+" hours and "+(task.time.minutes).toString()+" minutes")
             ],
           ),
           SizedBox(height: 50),
