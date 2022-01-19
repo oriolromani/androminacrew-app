@@ -4,6 +4,8 @@ import 'package:andromina_crew_app/src/widgets/ConfirmTaskButtonWidget.dart';
 import 'package:andromina_crew_app/src/widgets/RejectTaskButtonWidget.dart';
 import 'package:andromina_crew_app/src/widgets/TimeWorkButtonWidget.dart';
 import 'package:andromina_crew_app/src/widgets/FakeTimeWorkButtonWidget.dart';
+import 'package:andromina_crew_app/src/widgets/AddWorkTimeButtonWidget.dart';
+import 'package:andromina_crew_app/src/widgets/StopWorkTimeButtonWidget.dart';
 
 Widget TaskDetailButtonWidget(status, task, Function refresh) {
   //var format = DateFormat("yyyy-MM-dd");
@@ -21,12 +23,34 @@ Widget TaskDetailButtonWidget(status, task, Function refresh) {
   }else if(status == "confirmed"){
     //Status equal to confirmed, return buttons for time management
     if (task.start_date == today){
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          TimeWorkButtonWidget(task: task, notifyParent: refresh),
-        ],
-      );
+      if(task.times.length>=1){
+        final index = task.times.length - 1;
+        if(task.times[index].end_time==null){
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              //TimeWorkButtonWidget(task: task, notifyParent: refresh),
+              StopWorkTimeButtonWidget(task: task, notifyParent: refresh)
+            ],
+          );
+        }else{
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              //TimeWorkButtonWidget(task: task, notifyParent: refresh),
+              AddWorkTimeButtonWidget(task: task, notifyParent: refresh)
+            ],
+          );
+        }
+      }else{
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            //TimeWorkButtonWidget(task: task, notifyParent: refresh),
+            AddWorkTimeButtonWidget(task: task, notifyParent: refresh)
+          ],
+        );
+      }
     }else{
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
