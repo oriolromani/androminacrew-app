@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:andromina_crew_app/src/datamodels/tasks_model.dart';
 import 'package:andromina_crew_app/src/widgets/StatusBarWidget.dart';
 import 'package:andromina_crew_app/src/widgets/TaskDetailButtonWidget.dart';
+import 'package:andromina_crew_app/src/widgets/ListWorkTimeWidget.dart';
 
 Widget taskDetailWidget(Task task, Function refresh) {
+
   var status = task.status;
   return SingleChildScrollView(
     child: Container(
@@ -50,7 +52,7 @@ Widget taskDetailWidget(Task task, Function refresh) {
               child: ListView.builder(
                   itemCount: task.times.length,
                   itemBuilder: (BuildContext context, int index){
-                    return Text("Start: "+task.times[index].start_time+(task.times[index].end_time!=null?" End: " +task.times[index].end_time:''));
+                    return ListWorkTimeWidget(context, task, index, refresh);
                   }
               ),
             ),

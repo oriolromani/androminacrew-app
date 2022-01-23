@@ -169,13 +169,14 @@ class TaskService {
 
   Future<dynamic> updateWorkTime(Task task, int id, String startTime, String endTime) async {
     Map data = {
-      'end_time':  endTime
     };
+    if (endTime != ""){
+      data['end_time']=endTime;
+    }
     if (startTime != ""){
       data['start_time']=startTime;
     }
     var body = json.encode(data);
-    print(body);
     dynamic _token = await FlutterSession().get("tokens");
     String url = Api.baseUrl+'/tasks/'+task.uid.toString()+'/work-time/'+id.toString()+'/';
     var response = await http.put(Uri.parse(url),
