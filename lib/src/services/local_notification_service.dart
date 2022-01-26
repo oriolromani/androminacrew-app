@@ -4,6 +4,12 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 class LocalNotificationService{
   static final FlutterLocalNotificationsPlugin _notificationsPlugin =
       FlutterLocalNotificationsPlugin();
+  static AndroidNotificationDetails androidSettings = AndroidNotificationDetails(
+    "androminacrew",
+    "androminacrew channel",
+    importance: Importance.max,
+    priority: Priority.high,
+  );
 
   static void initialize(){
 
@@ -35,5 +41,17 @@ class LocalNotificationService{
     } on Exception catch (e) {
         print(e);
     }
+  }
+
+  static ShowOneTimeNotification(DateTime scheduledDate) async {
+    var notificationDetails = NotificationDetails();
+    await _notificationsPlugin.schedule(
+        1,
+        "Background Task notification",
+        "This is a background task notification",
+        scheduledDate,
+        notificationDetails,
+        androidAllowWhileIdle: true);
+
   }
 }
