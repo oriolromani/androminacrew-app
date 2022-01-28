@@ -11,6 +11,7 @@ import 'package:andromina_crew_app/src/screens/old_task_screen.dart';
 import 'package:andromina_crew_app/src/screens/calendar_screen.dart';
 import 'package:andromina_crew_app/src/screens/task_detail_screen.dart';
 import 'package:andromina_crew_app/src/services/auth_service.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
@@ -20,35 +21,44 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
+  late FirebaseMessaging messaging;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
-    /// gives you the meessage on which user taps
-    FirebaseMessaging.instance.getInitialMessage().then((message){
-      if(message!=null){
+    if(!kIsWeb) {
+      /// print FCM Token
+      messaging = FirebaseMessaging.instance;
+      messaging.getToken().then((value) {
+        print(value);
+      });
+
+      /// gives you the meessage on which user taps
+      FirebaseMessaging.instance.getInitialMessage().then((message) {
+        if (message != null) {
+          final routeFromMessage = message.data["route"];
+          print(routeFromMessage);
+        }
+      });
+
+      /// forground work
+      FirebaseMessaging.onMessage.listen((message) {
+        if (message.notification != null) {
+          print(message.notification!.body);
+          print(message.notification!.title);
+        }
+
+        LocalNotificationService.display(message);
+      });
+
+      /// App background but open
+      FirebaseMessaging.onMessageOpenedApp.listen((message) {
         final routeFromMessage = message.data["route"];
         print(routeFromMessage);
-      }
-    });
-
-    /// forground work
-    FirebaseMessaging.onMessage.listen((message) {
-      if(message.notification != null) {
-        print(message.notification!.body);
-        print(message.notification!.title);
-      }
-      
-      LocalNotificationService.display(message);
-    });
-
-    /// App background but open
-    FirebaseMessaging.onMessageOpenedApp.listen((message) {
-      final routeFromMessage = message.data["route"];
-      print(routeFromMessage);
-    });
+      });
+    }
   }
 
   @override
