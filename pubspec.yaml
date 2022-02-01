@@ -42,13 +42,13 @@ dependencies:
       ref: master
   intl: ^0.17.0
   time_range_picker: ^2.1.0
-  table_calendar: ^3.0.3
   shared_preferences: ^2.0.5
   syncfusion_flutter_calendar: ^19.4.41
   firebase_messaging: ^11.2.5
   flutter_local_notifications: ^9.2.0
   firebase_core: ^1.11.0
   workmanager: ^0.4.1
+  connectivity: ^3.0.3
 
 
 dev_dependencies:

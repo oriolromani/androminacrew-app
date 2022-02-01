@@ -16,13 +16,13 @@ class AuthService {
     var body = jsonEncode(data);
 
     ///Capture FCM Token
-    if(!kIsWeb) {
+    /*if(!kIsWeb) {
       late FirebaseMessaging messaging;
       messaging = FirebaseMessaging.instance;
       messaging.getToken().then((value){
         print(value);
       });
-    }
+    }*/
     //var body = utf8.encode(jsonEncode(data));
 
     //String url = 'https://andromina-crew.herokuapp.com/users/api-token-auth/';
@@ -46,6 +46,7 @@ class AuthService {
     _AuthData data = _AuthData(token, refreshToken);
     await SESSION.set('tokens', data);
   }
+
 
   static Future<Map<String, dynamic>> getToken() async {
     return await SESSION.get('tokens');

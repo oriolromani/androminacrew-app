@@ -14,20 +14,20 @@ class MyDrawer extends StatelessWidget{
             ),
             child: Text('AndrominaCrewAPP'),
           ),
-          ListTile(
-            title: const Text('Events'),
-            onTap: () {
-              // Update the state of the app
-              Navigator.pushNamed(context, '/home');
-            },
-          ),
-          ListTile(
-            title: const Text('Historical'),
-            onTap: () {
-              // Update the state of the app
-              Navigator.pushNamed(context, '/old');
-            },
-          ),
+          //ListTile(
+          //  title: const Text('Events'),
+          //  onTap: () {
+          //    // Update the state of the app
+          //    Navigator.pushNamed(context, '/home');
+          //  },
+          //),
+          //ListTile(
+          //  title: const Text('Historical'),
+          //  onTap: () {
+          //    // Update the state of the app
+          //    Navigator.pushNamed(context, '/old');
+          //  },
+          //),
           ListTile(
             title: const Text('Calendar'),
             onTap: () {

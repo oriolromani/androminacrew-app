@@ -9,7 +9,7 @@ import 'package:andromina_crew_app/src/screens/signup_screen.dart';
 import 'package:andromina_crew_app/src/screens/credentials_screen.dart';
 import 'package:andromina_crew_app/src/screens/old_task_screen.dart';
 import 'package:andromina_crew_app/src/screens/calendar_screen.dart';
-import 'package:andromina_crew_app/src/screens/task_detail_screen.dart';
+import 'package:andromina_crew_app/src/screens/calendar_screen_1.dart';
 import 'package:andromina_crew_app/src/services/auth_service.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
@@ -72,20 +72,22 @@ class _AppState extends State<App> {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return CircularProgressIndicator();
             } else if (snapshot.hasData) {
-              return HomeScreen();
+              return Calendar();
             } else {
               return LoginScreen();
             }
           },
         ),
         routes: {
-          '/home': (_) => HomeScreen(),
+          //'/home': (_) => HomeScreen(),
+          '/home': (_) => Calendar(),
           '/old': (_) => new OldTaskScreen(),
           '/login': (_) => new LoginScreen(),
           '/signup': (_) => new SignupScreen(),
           '/forgot_password': (_) => new ForgotPassword(),
           '/credentials': (_) => new CredentialsScreen(),
-          '/calendar': (_) => new TableEventsExample(),
+          '/calendar': (_) => new Calendar(),
+          //'/calendar': (_) => new TableEventsExample(),
           //'/calendar': (_) => new CalendarScreen(),
           //'/task_detail': (_) => new TaskDetailScreen(),
         },
