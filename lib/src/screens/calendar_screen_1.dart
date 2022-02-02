@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
@@ -50,7 +52,9 @@ class _CalendarState extends State<Calendar> {
                       view: CalendarView.month,
                       onTap: calendarTapped,
                       monthViewSettings: MonthViewSettings(
-                        appointmentDisplayMode: MonthAppointmentDisplayMode.appointment
+                          showAgenda: true,
+                          agendaItemHeight: 60,
+                        //appointmentDisplayMode: MonthAppointmentDisplayMode.appointment
                       ),
                       initialDisplayDate: DateTime.now(),
                       initialSelectedDate: DateTime.now(),
@@ -82,8 +86,12 @@ class _CalendarState extends State<Calendar> {
             builder: (context) =>
                 TaskDetailScreen1(task: meetingDetails)
         ),
-      );
+      ).then(onGoBack);
     }
+  }
+
+  FutureOr onGoBack(dynamic value){
+    setState((){});
   }
 
   void _checkNetworkStatus() {
@@ -136,8 +144,9 @@ class MeetingDataSource extends CalendarDataSource {
 
   @override
   String getSubject(int index) {
-    return appointments![index].name;
+    return appointments![index].name+" ("+appointments![index].company+")";
   }
+
 
   @override
   Color getColor(int index) {

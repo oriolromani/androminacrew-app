@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:andromina_crew_app/src/datamodels/tasks_model.dart';
 import 'package:andromina_crew_app/src/widgets/StatusBarWidget.dart';
 import 'package:andromina_crew_app/src/widgets/TaskDetailButtonWidget.dart';
-import 'package:andromina_crew_app/src/widgets/ListWorkTimeWidget.dart';
+import 'package:andromina_crew_app/src/widgets/PostedTimesWidget.dart';
 
 Widget taskDetailWidget(Task task, Function refresh) {
 
@@ -13,6 +13,7 @@ Widget taskDetailWidget(Task task, Function refresh) {
         alignment: Alignment.topCenter,
         padding: EdgeInsets.all(50),
         child: Column(
+          //crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             StatusBarWidget(task.status),
             Row(
@@ -39,23 +40,9 @@ Widget taskDetailWidget(Task task, Function refresh) {
               ],
             ),
             SizedBox(height: 50),
-            TaskDetailButtonWidget(status, task, refresh),
+            TaskDetailButtonWidget(task, refresh),
             SizedBox(height: 50),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text("Posted Times:")
-              ],
-            ),
-            SizedBox(
-              height: 100,
-              child: ListView.builder(
-                  itemCount: task.times.length,
-                  itemBuilder: (BuildContext context, int index){
-                    return ListWorkTimeWidget(context, task, index, refresh);
-                  }
-              ),
-            ),
+            PostedTimesWidget(task,refresh),
           ],
         )
     ),

@@ -52,6 +52,18 @@ class _TaskDetailScreen1State extends State<TaskDetailScreen1> {
               body: TabBarView(
                 children: [
                   Container(
+                    color: Colors.grey,
+                    alignment: Alignment.topCenter,
+                    /*decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.grey,
+                            Colors.white,
+                          ],
+                        )
+                    ),*/
                     child: taskDetailWidget(task, refresh),
                   ),
                   Container(

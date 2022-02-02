@@ -7,10 +7,10 @@ import 'package:andromina_crew_app/src/widgets/FakeTimeWorkButtonWidget.dart';
 import 'package:andromina_crew_app/src/widgets/AddWorkTimeButtonWidget.dart';
 import 'package:andromina_crew_app/src/widgets/StopWorkTimeButtonWidget.dart';
 
-Widget TaskDetailButtonWidget(status, task, Function refresh) {
+Widget TaskDetailButtonWidget(task, Function refresh) {
   //var format = DateFormat("yyyy-MM-dd");
   var today = DateFormat.yMMMMd('en_US').format(DateTime.now()).toString();
-  if (status == "proposed") {
+  if (task.status == "proposed") {
     //Status equal to proposed, return buttons for accept or refuse
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -20,7 +20,7 @@ Widget TaskDetailButtonWidget(status, task, Function refresh) {
         RejectTaskButtonWidget(task: task),
       ],
     );
-  }else if(status == "confirmed"){
+  }else if(task.status == "confirmed"){
     //Status equal to confirmed, return buttons for time management
     if (task.start_date == today){
       if(task.times.length>=1){
