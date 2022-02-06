@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:andromina_crew_app/src/services/task_service.dart';
 import 'package:andromina_crew_app/src/datamodels/tasks_model.dart';
 import 'package:andromina_crew_app/src/widgets/TaskDetailWidget.dart';
+import 'package:andromina_crew_app/src/widgets/StatusBarWidget_1.dart';
+import 'package:andromina_crew_app/src/widgets/PostedTimesWidget.dart';
+
+import 'package:timeline_tile/timeline_tile.dart';
 
 class TaskDetailScreen1 extends StatefulWidget {
   final Task task;
@@ -40,11 +44,19 @@ class _TaskDetailScreen1State extends State<TaskDetailScreen1> {
                     color: Colors.black,
                   ),
                 ),
-                backgroundColor: Colors.redAccent[100],
+                flexibleSpace: Container(
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: <Color>[Colors.redAccent, Colors.red]),
+                  ),
+                ),
+                //backgroundColor: Colors.redAccent[100],
                 bottom: TabBar(
                   tabs: [
                     Tab(icon: Icon(Icons.adjust)),
-                    Tab(icon: Icon(Icons.construction)),
+                    Tab(icon: Icon(Icons.alarm)),
                     Tab(icon: Icon(Icons.group)),
                   ],
                 ),
@@ -52,43 +64,50 @@ class _TaskDetailScreen1State extends State<TaskDetailScreen1> {
               body: TabBarView(
                 children: [
                   Container(
-                    color: Colors.grey,
+                    //color: Colors.grey,
                     alignment: Alignment.topCenter,
-                    /*decoration: BoxDecoration(
+                    decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
                           colors: [
+                            Colors.blueGrey,
                             Colors.grey,
-                            Colors.white,
                           ],
                         )
-                    ),*/
-                    child: taskDetailWidget(task, refresh),
+                    ),
+                    child:
+                        Column(
+                          children: [
+                            StatusBarWidget1(task),
+                            taskDetailWidget(task, refresh),
+                          ],
+                        ),
                   ),
                   Container(
                     alignment: Alignment.topCenter,
                     decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
+                          begin: Alignment.topRight,
+                          end: Alignment.bottomLeft,
                           colors: [
+                            Colors.blueGrey,
                             Colors.grey,
-                            Colors.white,
                           ],
                         )
                     ),
+                    child: PostedTimesWidget(task,refresh),
                     //child: materialDetailWidget(),
                   ),
                   Container(
                     alignment: Alignment.topCenter,
                     decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
                           colors: [
-                            Colors.grey,
-                            Colors.white,
+                            Colors.blueGrey,
+                            Colors.grey
                           ],
                         )
                     ),

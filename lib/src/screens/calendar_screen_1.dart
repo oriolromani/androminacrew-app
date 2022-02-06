@@ -47,6 +47,16 @@ class _CalendarState extends State<Calendar> {
             if (snapshot.data != null) {
               return SafeArea(
                 child: Container(
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Colors.blueGrey,
+                            Colors.grey,
+                          ],
+                        )
+                    ),
                   padding: EdgeInsets.all(16),
                     child: SfCalendar(
                       view: CalendarView.month,
