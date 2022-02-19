@@ -51,7 +51,7 @@ class _AddWorkTimeButtonWidgetState extends State<AddWorkTimeButtonWidget> {
         ),
         child: Icon(Icons.play_circle_fill,
             color: Colors.amber,
-            size:180),
+            size:100),
       ),
     );
   }

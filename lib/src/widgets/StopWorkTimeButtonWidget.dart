@@ -51,7 +51,7 @@ class _StopWorkTimeButtonWidgetState extends State<StopWorkTimeButtonWidget> {
         ),
         child: Icon(Icons.pause_circle_filled,
             color: Colors.amber,
-            size:180),
+            size:100),
       ),
     );
   }

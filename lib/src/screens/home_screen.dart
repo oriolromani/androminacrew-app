@@ -45,8 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             )
         ),
-        child: taskWidget(futureTask)
-
+        child: taskWidget(futureTask),
       ),
       drawer: MyDrawer(),
     );
@@ -120,7 +119,17 @@ class _HomeScreenState extends State<HomeScreen> {
               );
           }
         } else if (snapshot.hasError) {
-          return Text("${snapshot.error}");
+          return SizedBox.expand(
+            child: Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    //Text("${snapshot.error}")
+                    Text("Sorry, something went wrong:"),
+                    Text("Please, check your internet connection")
+                  ],
+                )),
+          );
         }
         return Container(
             alignment: Alignment.center,

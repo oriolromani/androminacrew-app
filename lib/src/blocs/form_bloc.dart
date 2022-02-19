@@ -6,6 +6,8 @@ import 'package:andromina_crew_app/src/services/auth_service.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../mixins/validation_mixin.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class FormBloc with ValidationMixin {
   final _email = new BehaviorSubject<String>();
@@ -63,8 +65,9 @@ class FormBloc with ValidationMixin {
       addError(data['message']);
     } else {
       AuthService.setToken(data['token'], data['refreshToken']);
+
       Navigator.pushNamed(context, '/home');
-      //reset email & password to blank
+      ///reset email & password to blank
       _email.value="";
       _password.value="";
       return data;

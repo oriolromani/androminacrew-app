@@ -43,6 +43,9 @@ class TaskService {
 
   Future <List<Task>> getFutureTask() async {
     dynamic _token = await FlutterSession().get("tokens");
+    //dynamic _FCMtoken = await FlutterSession().get("FCMtokens");
+    //print("ESTOY EN GET TASK Y IMPRIMO TOKENN");
+    //print(_FCMtoken['token']);
     var formatter = new DateFormat('yyyy-MM-dd');
     String url = Api.baseUrl+'/tasks/?start_date__gte='+formatter.format(DateTime.now())+'&ordering=start_date';
     var response = await http.get(Uri.parse(url), headers: {
