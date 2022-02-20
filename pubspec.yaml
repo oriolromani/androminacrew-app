@@ -50,6 +50,7 @@ dependencies:
   workmanager: ^0.4.1
   connectivity: ^3.0.3
   timeline_tile: ^2.0.0
+  device_info_plus: ^3.2.2
 
 
 dev_dependencies:

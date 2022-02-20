@@ -5,6 +5,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'api.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:andromina_crew_app/src/datamodels/fcm_device_model.dart';
+import 'package:andromina_crew_app/src/services/fcm_service.dart';
 
 class AuthService {
   static final SESSION = FlutterSession();
@@ -15,14 +17,6 @@ class AuthService {
     //var body = json.encode(data);
     var body = jsonEncode(data);
 
-    ///Capture FCM Token
-    /*if(!kIsWeb) {
-      late FirebaseMessaging messaging;
-      messaging = FirebaseMessaging.instance;
-      messaging.getToken().then((value){
-        print(value);
-      });
-    }*/
     //var body = utf8.encode(jsonEncode(data));
 
     //String url = 'https://andromina-crew.herokuapp.com/users/api-token-auth/';
