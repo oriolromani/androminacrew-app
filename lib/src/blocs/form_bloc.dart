@@ -9,6 +9,12 @@ import '../mixins/validation_mixin.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:firebase_messaging/firebase_messaging.dart';
 
+import 'package:andromina_crew_app/src/datamodels/fcm_device_model.dart';
+import 'package:andromina_crew_app/src/services/fcm_service.dart';
+import 'package:andromina_crew_app/src/services/device_info_service.dart';
+
+import 'package:device_info_plus/device_info_plus.dart';
+
 class FormBloc with ValidationMixin {
   final _email = new BehaviorSubject<String>();
   final _password = new BehaviorSubject<String>();
@@ -65,12 +71,32 @@ class FormBloc with ValidationMixin {
       addError(data['message']);
     } else {
       AuthService.setToken(data['token'], data['refreshToken']);
-
       Navigator.pushNamed(context, '/home');
+
+      ///Capture Device info
+      Map<String, dynamic> deviceData = await DeviceInfo().initPlatformState();
+
+      ///Register FCM Token
+           if(!kIsWeb) {
+             late FirebaseMessaging messaging;
+             messaging = FirebaseMessaging.instance;
+             messaging.getToken().then((value){
+               String fcm_token = value.toString();
+               FCMDevice fcm_device = FCMDevice(
+                   name: deviceData['model'],
+                   registration_id: fcm_token,
+                   device_id: deviceData['androidId'],
+                   active: true,
+                   type: deviceData['fcm_type']);
+               FCMService().registerFCM(fcm_device);
+             });
+           }
+
       ///reset email & password to blank
       _email.value="";
       _password.value="";
-      return data;
+
+     return data;
     }
   }
 
