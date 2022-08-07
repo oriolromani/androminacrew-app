@@ -46,7 +46,7 @@ class _ConfirmTaskButtonWidgetState extends State<ConfirmTaskButtonWidget> {
             borderRadius: BorderRadius.all(Radius.circular(20))
         ),
         child: Icon(Icons.check,
-            size:100),
+            size:50),
       ),
     );
   }

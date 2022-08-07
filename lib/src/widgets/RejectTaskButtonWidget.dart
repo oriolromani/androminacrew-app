@@ -46,7 +46,7 @@ class _RejectTaskButtonWidgetState extends State<RejectTaskButtonWidget> {
             borderRadius: BorderRadius.all(Radius.circular(20))
         ),
         child: Icon(Icons.close_rounded,
-            size:100),
+            size:50),
       ),
     );
   }

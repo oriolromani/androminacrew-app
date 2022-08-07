@@ -142,19 +142,19 @@ class MeetingDataSource extends CalendarDataSource {
 
   @override
   DateTime getStartTime(int index) {
-    DateTime _date = new DateFormat.yMMMMd('en_US').parse(appointments![index].start_date);
+    DateTime _date = new DateFormat.yMMMMd('en_US').parse(appointments![index].date);
     return _date;
   }
 
   @override
   DateTime getEndTime(int index) {
-    DateTime _date = new DateFormat.yMMMMd('en_US').parse(appointments![index].start_date);
+    DateTime _date = new DateFormat.yMMMMd('en_US').parse(appointments![index].date);
     return _date;
   }
 
   @override
   String getSubject(int index) {
-    return appointments![index].name+" ("+appointments![index].company+")";
+    return appointments![index].name+" ("+appointments![index].company.name+")";
   }
 
 
