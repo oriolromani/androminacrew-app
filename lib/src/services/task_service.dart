@@ -98,8 +98,8 @@ class TaskService {
   Future<dynamic> acceptTask(Task task) async {
     task.status='confirmed';
     DateFormat format = new DateFormat("MMMM dd, yyyy");
-    DateTime date = format.parse(task.start_date);
-    task.start_date = DateFormat("yyyy-MM-dd").format(date);
+    DateTime c_date = format.parse(task.date);
+    task.date = DateFormat("yyyy-MM-dd").format(c_date);
     var body = json.encode(task.toJson());
     print(body);
     dynamic _token = await FlutterSession().get("tokens");
@@ -111,7 +111,8 @@ class TaskService {
         },
         body: body)
         .timeout(const Duration(seconds: 15));
-    print(response.statusCode);
+    print("HEELLO 2022");
+    print(response.body);
     if (response.statusCode == 200) {
       return Task.fromJson(
           json.decode(utf8.decode(response.bodyBytes)));
@@ -123,8 +124,8 @@ class TaskService {
   Future<dynamic> rejectTask(Task task) async {
     task.status='rejected';
     DateFormat format = new DateFormat("MMMM dd, yyyy");
-    DateTime date = format.parse(task.start_date);
-    task.start_date = DateFormat("yyyy-MM-dd").format(date);
+    DateTime date = format.parse(task.date);
+    task.date = DateFormat("yyyy-MM-dd").format(date);
     var body = json.encode(task.toJson());
     dynamic _token = await FlutterSession().get("tokens");
     String url = Api.baseUrl+'/tasks/'+task.uid.toString()+'/';

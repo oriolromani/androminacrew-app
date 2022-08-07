@@ -35,6 +35,7 @@ class _TaskDetailScreen1State extends State<TaskDetailScreen1> {
       builder: (BuildContext context, AsyncSnapshot<Task> snapshot) {  // AsyncSnapshot<Your object type>
         if(snapshot.hasData){
           Task task = snapshot.data as Task;
+          print(task.toString());
           return DefaultTabController(
             length: 3,
             child: Scaffold(
@@ -79,7 +80,7 @@ class _TaskDetailScreen1State extends State<TaskDetailScreen1> {
                     child:
                         Column(
                           children: [
-                            StatusBarWidget1(task),
+                            //StatusBarWidget1(task),
                             taskDetailWidget(task, refresh),
                           ],
                         ),

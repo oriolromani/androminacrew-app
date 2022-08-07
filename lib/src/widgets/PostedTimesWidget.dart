@@ -12,7 +12,7 @@ Widget PostedTimesWidget(Task task, Function refresh) {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(task.time.hours.toString()+":"+task.time.minutes.toString(),
+              Text("",
               style: TextStyle(
                 fontSize: 70,
                 color: Colors.indigo

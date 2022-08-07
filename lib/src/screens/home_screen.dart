@@ -89,14 +89,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               leading: StatusFlagWidget(task[index].status),
                               //onTap: () {},
                               title: Text(
-                                task[index].name + " - " + task[index].company,
+                                task[index].name + " - " + task[index].company.name,
                                 style: TextStyle(
                                   fontSize: 20,
                                 ),),
                               subtitle: Row(
                                 children: [
-                                  Text(task[index].start_date != null
-                                      ? task[index].start_date as String
+                                  Text(task[index].date != null
+                                      ? task[index].date as String
                                       : ''),
                                 ],
                               ),
