@@ -26,35 +26,37 @@ Widget ListWorkTimeWidget(context, Task task, int index, Function refresh){
   }
 
   if (task.times[index].end_time!=null) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Text("from: " + task.times[index].start_time.substring(11, 16)),
-        SizedBox(
-          width: 5,
-        ),
-        IconButton(
-            icon: Icon(Icons.edit,
-                size: 15),
-            onPressed: () {
-              selectedTime(context, task, task.times[index].id,
-                  task.times[index].start_time, true);
-            }
-        ),
-        SizedBox(
-          width: 20,
-        ),
-        Text(task.times[index].end_time != null ? " to: " +
-            task.times[index].end_time.substring(11, 16) : ''),
-        IconButton(
-            icon: Icon(Icons.edit,
-                size: 15),
-            onPressed: () {
-              selectedTime(context, task, task.times[index].id,
-                  task.times[index].end_time, false);
-            }
-        )
-      ],
+    return Material(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text("from: " + task.times[index].start_time.substring(11, 16)),
+          SizedBox(
+            width: 5,
+          ),
+          IconButton(
+              icon: Icon(Icons.edit,
+                  size: 15),
+              onPressed: () {
+                selectedTime(context, task, task.times[index].id,
+                    task.times[index].start_time, true);
+              }
+          ),
+          SizedBox(
+            width: 20,
+          ),
+          Text(task.times[index].end_time != null ? " to: " +
+              task.times[index].end_time.substring(11, 16) : ''),
+          IconButton(
+              icon: Icon(Icons.edit,
+                  size: 15),
+              onPressed: () {
+                selectedTime(context, task, task.times[index].id,
+                    task.times[index].end_time, false);
+              }
+          )
+        ],
+      ),
     );
   }else{
     return Row(

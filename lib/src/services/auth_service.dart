@@ -30,7 +30,9 @@ class AuthService {
     String url = Api.baseUrl+'/users/api-token-auth/';
     var response = await http.post(Uri.parse(url), headers: {
       "Content-Type": "application/json; charset=utf-8",
-      "Access-Control-Allow-Origin": "*",
+      //"Access-Control-Allow-Origin": "*",
+      //"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization",
+      //"Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
     }, body: body).timeout(const Duration(seconds: 15));
      if (response.statusCode == 200) {
       return response.body;

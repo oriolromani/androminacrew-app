@@ -22,7 +22,7 @@ Widget TaskDetailButtonWidget(task, Function refresh) {
     );
   }else if(task.status == "confirmed"){
     //Status equal to confirmed, return buttons for time management
-    if (task.start_date == today){
+    if (task.date == today){
       if(task.times.length>=1){
         final index = task.times.length - 1;
         if(task.times[index].end_time==null){

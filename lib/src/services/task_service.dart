@@ -14,7 +14,7 @@ class TaskService {
     String url = Api.baseUrl+'/tasks/';
     var response = await http.get(Uri.parse(url), headers: {
       "Content-Type": "application/json; charset=utf-8",
-      "Access-Control-Allow-Origin": "*",
+      //"Access-Control-Allow-Origin": "*",
       'authorization': 'Token '+_token['token']
     }).timeout(const Duration(seconds: 15));
     if (response.statusCode == 200) {
@@ -30,7 +30,7 @@ class TaskService {
     String url = Api.baseUrl+'/tasks/'+id;
     var response = await http.get(Uri.parse(url), headers: {
       "Content-Type": "application/json; charset=utf-8",
-      "Access-Control-Allow-Origin": "*",
+      //"Access-Control-Allow-Origin": "*",
       'authorization': 'Token '+_token['token']
     }).timeout(const Duration(seconds: 15));
     if (response.statusCode == 200) {
@@ -50,7 +50,7 @@ class TaskService {
     String url = Api.baseUrl+'/tasks/?start_date__gte='+formatter.format(DateTime.now())+'&ordering=start_date';
     var response = await http.get(Uri.parse(url), headers: {
       "Content-Type": "application/json; charset=utf-8",
-      "Access-Control-Allow-Origin": "*",
+      //"Access-Control-Allow-Origin": "*",
       'authorization': 'Token '+_token['token']
     }).timeout(const Duration(seconds: 15));
     if (response.statusCode == 200) {
@@ -67,7 +67,7 @@ class TaskService {
     String url = Api.baseUrl+'/tasks/?start_date__lt='+formatter.format(DateTime.now())+'&ordering=-start_date';
     var response = await http.get(Uri.parse(url), headers: {
       "Content-Type": "application/json; charset=utf-8",
-      "Access-Control-Allow-Origin": "*",
+      //"Access-Control-Allow-Origin": "*",
       'authorization': 'Token '+_token['token']
     }).timeout(const Duration(seconds: 15));
     if (response.statusCode == 200) {
@@ -84,7 +84,7 @@ class TaskService {
     String url = Api.baseUrl+'/tasks/?start_date='+formatter.format(DateTime.now())+'&status=2';
     var response = await http.get(Uri.parse(url), headers: {
       "Content-Type": "application/json; charset=utf-8",
-      "Access-Control-Allow-Origin": "*",
+      //"Access-Control-Allow-Origin": "*",
       'authorization': 'Token '+_token['token']
     }).timeout(const Duration(seconds: 15));
     if (response.statusCode == 200) {
@@ -101,7 +101,6 @@ class TaskService {
     DateTime c_date = format.parse(task.date);
     task.date = DateFormat("yyyy-MM-dd").format(c_date);
     var body = json.encode(task.toJson());
-    print(body);
     dynamic _token = await FlutterSession().get("tokens");
     String url = Api.baseUrl+'/tasks/'+task.uid.toString()+'/';
     var response = await http.put(Uri.parse(url),
@@ -111,8 +110,6 @@ class TaskService {
         },
         body: body)
         .timeout(const Duration(seconds: 15));
-    print("HEELLO 2022");
-    print(response.body);
     if (response.statusCode == 200) {
       return Task.fromJson(
           json.decode(utf8.decode(response.bodyBytes)));

@@ -33,29 +33,6 @@ Widget taskDetailWidget(Task task, Function refresh) {
                     TableRow(
                       children: <Widget>[
                         Container(
-                          height: 70,
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text(task.gig!.name,
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold
-                              ),
-                            ),
-                          ),
-                        ),
-                      Container(
-                        margin: EdgeInsets.all(10),
-                        child:Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(task.date),
-                        ),
-                      ),
-                    ],
-                    ),
-                    TableRow(
-                      children: <Widget>[
-                        Container(
                           margin: EdgeInsets.all(10),
                           child: Align(
                             alignment: Alignment.centerLeft,
