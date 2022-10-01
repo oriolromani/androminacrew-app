@@ -9,26 +9,18 @@ class MyDrawer extends StatelessWidget{
         padding: EdgeInsets.zero,
         children: [
           const DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.redAccent,
-            ),
             child: Text('AndrominaCrewAPP'),
           ),
-          //ListTile(
-          //  title: const Text('Events'),
-          //  onTap: () {
-          //    // Update the state of the app
-          //    Navigator.pushNamed(context, '/home');
-          //  },
-          //),
-          //ListTile(
-          //  title: const Text('Historical'),
-          //  onTap: () {
-          //    // Update the state of the app
-          //    Navigator.pushNamed(context, '/old');
-          //  },
-          //),
           ListTile(
+            leading: Icon(Icons.home),
+            title: const Text('Dashboard'),
+            onTap: () {
+              // Update the state of the app
+              Navigator.pushNamed(context, '/dashboard');
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.calendar_month),
             title: const Text('Calendar'),
             onTap: () {
               // Update the state of the app
@@ -36,12 +28,22 @@ class MyDrawer extends StatelessWidget{
             },
           ),
           ListTile(
+            leading: Icon(Icons.apps_outlined),
+            title: const Text('Gigs'),
+            onTap: () {
+              // Update the state of the app
+              Navigator.pushNamed(context, '/gigs');
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.settings),
             title: const Text('Credentials'),
             onTap: () {
               Navigator.pushNamed(context, '/credentials');
             },
           ),
           ListTile(
+            leading: Icon(Icons.logout),
             title: const Text('LogOut'),
             onTap: () {
               Navigator.popAndPushNamed(context, '/login');

@@ -11,53 +11,103 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final FormBloc formBloc = Provider.of(context);
+    final screenWidth = MediaQuery.of(context).size.width;
+    const breakpoint = 600.0;
 
-    return Scaffold(
-      backgroundColor: Colors.red[200],
-      body: Center(
-        child: SingleChildScrollView(
-          child: Container(
-            margin: EdgeInsets.only(top: 100.0, left: 50.0, right: 50.0),
-            height: 550.0,
-            child: Form(
-              child: Column(
-                children: <Widget>[
-                  _emailField(formBloc),
-                  _passwordField(formBloc),
-                  Container(
-                    width: 300,
-                    height: 35,
-                    child: Helper().errorMessage(formBloc),
-                  ),
-                  _checkBox(),
-                  _buttonField(formBloc),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                        onTap: () =>
-                            Navigator.pushNamed(context, '/forgot_password'),
-                        child: Container(
-                          child: Text('Forgot password?'),
-                          alignment: Alignment.bottomLeft,
+    if (screenWidth >= breakpoint){
+      return Scaffold(
+        body: Center(
+          child: SingleChildScrollView(
+            child: Container(
+              width: screenWidth*0.35,
+              height: 400.0,
+              child: Form(
+                child: Column(
+                  children: <Widget>[
+                    _emailField(formBloc),
+                    _passwordField(formBloc),
+                    Container(
+                      width: 100,
+                      height: 35,
+                      child: Helper().errorMessage(formBloc),
+                    ),
+                    _checkBox(),
+                    _buttonField(formBloc),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                          onTap: () =>
+                              Navigator.pushNamed(context, '/forgot_password'),
+                          child: Container(
+                            child: Text('Forgot password?'),
+                            alignment: Alignment.bottomLeft,
+                          ),
                         ),
-                      ),
-                      GestureDetector(
-                        onTap: () => Navigator.pushNamed(context, '/signup'),
-                        child: Container(
-                          child: Text('Register'),
-                          alignment: Alignment.bottomLeft,
+                        GestureDetector(
+                          onTap: () => Navigator.pushNamed(context, '/signup'),
+                          child: Container(
+                            child: Text('Register'),
+                            alignment: Alignment.bottomLeft,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
         ),
-      ),
-    );
+      );
+
+    }else {
+      return Scaffold(
+        body: Center(
+          child: SingleChildScrollView(
+            child: Container(
+              margin: EdgeInsets.only(top: 100.0, left: 50.0, right: 50.0),
+              height: 550.0,
+              child: Form(
+                child: Column(
+                  children: <Widget>[
+                    _emailField(formBloc),
+                    _passwordField(formBloc),
+                    Container(
+                      width: 300,
+                      height: 35,
+                      child: Helper().errorMessage(formBloc),
+                    ),
+                    _checkBox(),
+                    _buttonField(formBloc),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                          onTap: () =>
+                              Navigator.pushNamed(context, '/forgot_password'),
+                          child: Container(
+                            child: Text('Forgot password?'),
+                            alignment: Alignment.bottomLeft,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () => Navigator.pushNamed(context, '/signup'),
+                          child: Container(
+                            child: Text('Register'),
+                            alignment: Alignment.bottomLeft,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
   }
 
   Widget _emailField(FormBloc bloc) {
@@ -111,7 +161,7 @@ class LoginScreen extends StatelessWidget {
         builder: (context, snapshot) {
           return Padding(
             padding: const EdgeInsets.all(20.0),
-            child: RaisedButton(
+            child: ElevatedButton(
               onPressed: () {
                 if (snapshot.hasError) {
                   print(snapshot.error);
@@ -120,12 +170,6 @@ class LoginScreen extends StatelessWidget {
                 bloc.login(context);
               },
               child: const Icon(Icons.arrow_forward),
-              color: Colors.amber,
-              clipBehavior: Clip.hardEdge,
-              elevation: 10,
-              disabledColor: Colors.blueGrey,
-              disabledElevation: 10,
-              disabledTextColor: Colors.white,
             ),
           );
         });

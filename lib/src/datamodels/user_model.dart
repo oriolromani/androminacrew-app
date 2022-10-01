@@ -25,11 +25,11 @@ class User {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['username'] = this.username;
-    data['first_name'] = this.first_name;
-    data['last_name'] = this.last_name;
-    data['email'] = this.email;
-    data['uid'] = this.uid;
+    data['username'] = username;
+    data['first_name'] = first_name;
+    data['last_name'] = last_name;
+    data['email'] = email;
+    data['uid'] = uid;
     return data;
   }
 }

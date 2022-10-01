@@ -95,7 +95,7 @@ class SignupScreen extends StatelessWidget {
         builder: (context, snapshot) {
           return Padding(
             padding: const EdgeInsets.all(20.0),
-            child: RaisedButton(
+            child: ElevatedButton(
               onPressed: () {
                 if (snapshot.hasError) {
                   return null;
@@ -103,13 +103,8 @@ class SignupScreen extends StatelessWidget {
                 return bloc.register(context);
               },
               child: const Icon(Icons.arrow_forward),
-              color: Colors.amber,
               clipBehavior: Clip.hardEdge,
-              elevation: 10,
-              disabledColor: Colors.blueGrey,
-              disabledElevation: 10,
-              disabledTextColor: Colors.white,
-            ),
+             ),
           );
         });
   }

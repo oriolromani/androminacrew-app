@@ -20,7 +20,7 @@ void callbackDispatcher(){
 
 //Receive message when app is in background
 Future<void> backgroundHandler(RemoteMessage message) async{
-  print(message.data.toString());
+  //print(message.data.toString());
 }
 
 void main() async{

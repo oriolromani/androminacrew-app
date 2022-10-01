@@ -27,64 +27,106 @@ class _CalendarState extends State<Calendar> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      drawer: MyDrawer(),
-      appBar: AppBar(
-        title: Text('Calendar',
-          style: TextStyle(
-            color: Colors.black,
+    final screenWidth = MediaQuery.of(context).size.width;
+    const breakpoint = 600.0;
+    if (screenWidth >= breakpoint){
+      return new Row(
+        children: [
+          SizedBox(
+            width: 240,
+            child: MyDrawer(),
           ),
-        ),
-        elevation: 4,
-        backgroundColor: Colors.redAccent[100],
-      ),
-      body: Container(
-        color: Colors.grey[400],
-        child: FutureBuilder(
-          //future: getDataFromWeb(),
-          future: TaskService().getAllTask(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.data != null) {
-              return SafeArea(
-                child: Container(
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            Colors.blueGrey,
-                            Colors.grey,
-                          ],
-                        )
+          Container(width:0.5,color: Colors.black),
+          Expanded(child:
+          Container(
+            color: Colors.red.withOpacity(0.05),
+            child: FutureBuilder(
+              //future: getDataFromWeb(),
+              future: TaskService().getAllTask(),
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if (snapshot.data != null) {
+                  return SafeArea(
+                    child: Container(
+                        padding: EdgeInsets.all(16),
+                        child: SfCalendar(
+                          view: CalendarView.month,
+                          onTap: calendarTapped,
+                          monthViewSettings: MonthViewSettings(
+                            showAgenda: true,
+                            agendaItemHeight: 60,
+                            //appointmentDisplayMode: MonthAppointmentDisplayMode.appointment
+                          ),
+                          initialDisplayDate: DateTime.now(),
+                          initialSelectedDate: DateTime.now(),
+                          firstDayOfWeek: 1,
+                          showNavigationArrow: true,
+                          dataSource: MeetingDataSource(snapshot.data),
+                        )),
+                  );
+                } else {
+                  return Container(
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                      //child: Text('$_networkStatusMsg'),
                     ),
-                  padding: EdgeInsets.all(16),
-                    child: SfCalendar(
-                      view: CalendarView.month,
-                      onTap: calendarTapped,
-                      monthViewSettings: MonthViewSettings(
+                  );
+                }
+              },
+            ),
+          ),
+          ),
+        ],
+      );
+    }else {
+      return new Scaffold(
+        drawer: MyDrawer(),
+        appBar: AppBar(
+          title: Text('Calendar',
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
+          elevation: 4,
+          backgroundColor: Colors.redAccent[100],
+        ),
+        body: Container(
+          color: Colors.red.withOpacity(0.05),
+          child: FutureBuilder(
+            //future: getDataFromWeb(),
+            future: TaskService().getAllTask(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.data != null) {
+                return SafeArea(
+                  child: Container(
+                      padding: EdgeInsets.all(16),
+                      child: SfCalendar(
+                        view: CalendarView.month,
+                        onTap: calendarTapped,
+                        monthViewSettings: MonthViewSettings(
                           showAgenda: true,
                           agendaItemHeight: 60,
-                        //appointmentDisplayMode: MonthAppointmentDisplayMode.appointment
-                      ),
-                      initialDisplayDate: DateTime.now(),
-                      initialSelectedDate: DateTime.now(),
-                      firstDayOfWeek: 1,
-                      showNavigationArrow: true,
-                      dataSource: MeetingDataSource(snapshot.data),
-                    )),
-              );
-            } else {
-              return Container(
-                child: Center(
-                  child: CircularProgressIndicator(),
-                  //child: Text('$_networkStatusMsg'),
-                ),
-              );
-            }
-          },
+                          //appointmentDisplayMode: MonthAppointmentDisplayMode.appointment
+                        ),
+                        initialDisplayDate: DateTime.now(),
+                        initialSelectedDate: DateTime.now(),
+                        firstDayOfWeek: 1,
+                        showNavigationArrow: true,
+                        dataSource: MeetingDataSource(snapshot.data),
+                      )),
+                );
+              } else {
+                return Container(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                    //child: Text('$_networkStatusMsg'),
+                  ),
+                );
+              }
+            },
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
 
   void calendarTapped(CalendarTapDetails details){
@@ -142,19 +184,19 @@ class MeetingDataSource extends CalendarDataSource {
 
   @override
   DateTime getStartTime(int index) {
-    DateTime _date = new DateFormat.yMMMMd('en_US').parse(appointments![index].start_date);
+    DateTime _date = new DateFormat.yMMMMd('en_US').parse(appointments![index].date);
     return _date;
   }
 
   @override
   DateTime getEndTime(int index) {
-    DateTime _date = new DateFormat.yMMMMd('en_US').parse(appointments![index].start_date);
+    DateTime _date = new DateFormat.yMMMMd('en_US').parse(appointments![index].date);
     return _date;
   }
 
   @override
   String getSubject(int index) {
-    return appointments![index].name+" ("+appointments![index].company+")";
+    return appointments![index].name+" ("+appointments![index].company.name+")";
   }
 
 

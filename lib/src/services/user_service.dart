@@ -14,7 +14,7 @@ class UserService {
     String url = Api.baseUrl+'/users/detail/';
     var response = await http.get(Uri.parse(url), headers: {
       "Content-Type": "application/json; charset=utf-8",
-      "Access-Control-Allow-Origin": "*",
+      //"Access-Control-Allow-Origin": "*",
       'authorization': 'Token '+_token['token']
     }).timeout(const Duration(seconds: 15));
     if (response.statusCode == 200) {
