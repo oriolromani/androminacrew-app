@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:andromina_crew_app/src/services/task_service.dart';
 import 'package:andromina_crew_app/src/datamodels/tasks_model.dart';
+import 'package:intl/intl.dart';
 
 class AddWorkTimeButtonWidget extends StatefulWidget {
   const AddWorkTimeButtonWidget({Key? key, required this.task, required this.notifyParent}) : super(key: key);
@@ -33,9 +34,9 @@ class _AddWorkTimeButtonWidgetState extends State<AddWorkTimeButtonWidget> {
                       onPressed: () {
                         setState(() {
                           final now = new DateTime.now();
-                          final start_time = new DateTime(now.year,now.month, now.day, now.hour, now.minute);
-                          TaskService().createWorkTime(widget.task,start_time.toString(),'');
-                          widget.notifyParent();
+                          //final start_time = new DateTime(now.year,now.month, now.day, now.hour, now.minute);
+                          final start_time = new DateTime(now.year,now.month,now.day,now.hour, now.minute, now.second).toUtc();
+                          TaskService().createWorkTime(widget.task,start_time.toString(),'').then((value) => widget.notifyParent());
                           Navigator.pop(context, 'Ok');
                         });
                       },

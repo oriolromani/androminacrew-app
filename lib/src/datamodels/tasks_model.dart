@@ -25,6 +25,8 @@ class Task {
   DateTime updated_at;
   CompanyModel company;
   String user;
+  String user_name;
+  String working_status;
   List<TaskTimesModel> times;
 
 
@@ -45,6 +47,8 @@ class Task {
         required this.updated_at,
         required this.company,
         required this.user,
+        required this.user_name,
+        required this.working_status,
         required this.times});
 
 
@@ -65,6 +69,8 @@ class Task {
         updated_at = DateTime.parse(json['updated_at']),
         company = CompanyModel.fromJson(json['company']),
         user = json['user'],
+        user_name = json['user_name'],
+        working_status = json['working_status'],
         times = (json['times'] as List).map((e) => TaskTimesModel.fromJson(e)).toList();
 
   Map<String, dynamic> toJson() {
@@ -76,6 +82,7 @@ class Task {
     data['company'] = this.company;
     data['status'] = this.status;
     data['user'] = this.user;
+    data['working_status'] = this.working_status;
     data['times'] =
       json.encode(this.times.map((e) => e.toJson()).toList());
     return data;

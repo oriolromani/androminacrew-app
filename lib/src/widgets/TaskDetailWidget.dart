@@ -61,7 +61,7 @@ Widget taskDetailWidget(Task task, Function refresh) {
                           margin: EdgeInsets.all(10),
                           child:Align(
                             alignment: Alignment.centerLeft,
-                            child: Text(task.category ?? ''),
+                            child: Text(task.category != null?task.category:""),
                           ),
                         ),
                       ],
@@ -79,7 +79,7 @@ Widget taskDetailWidget(Task task, Function refresh) {
                           margin: EdgeInsets.all(10),
                           child:Align(
                             alignment: Alignment.centerLeft,
-                            child: Text(task.gig!.name ?? ''),
+                            child: Text(task.gig!.name != null?task.gig!.name :""),
                           ),
                         ),
                       ],
@@ -97,7 +97,7 @@ Widget taskDetailWidget(Task task, Function refresh) {
                           margin: EdgeInsets.all(10),
                           child:Align(
                             alignment: Alignment.centerLeft,
-                            child: Text(task.gig!.venue ?? ''),
+                            child: Text(task.gig!.venue != null?task.gig!.venue :""),
                           ),
                         ),
                       ],
@@ -133,7 +133,7 @@ Widget taskDetailWidget(Task task, Function refresh) {
                           margin: EdgeInsets.all(10),
                           child:Align(
                             alignment: Alignment.centerLeft,
-                            child: Text(task.start_time ?? ''),
+                            child: Text(task.start_time != null?task.start_time :""),
                           ),
                         ),
                       ],
@@ -151,7 +151,7 @@ Widget taskDetailWidget(Task task, Function refresh) {
                           margin: EdgeInsets.all(10),
                           child:Align(
                             alignment: Alignment.centerLeft,
-                            child: Text(task.end_time ?? ''),
+                            child: Text(task.end_time != null?task.end_time :""),
                           ),
                         ),
                       ],

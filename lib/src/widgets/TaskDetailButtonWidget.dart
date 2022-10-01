@@ -22,15 +22,24 @@ Widget TaskDetailButtonWidget(task, Function refresh) {
     );
   }else if(task.status == "confirmed"){
     //Status equal to confirmed, return buttons for time management
-    if (task.date == today){
+    //if (task.date == today){
+    if (true){
       if(task.times.length>=1){
         final index = task.times.length - 1;
-        if(task.times[index].end_time==null){
+        //find unfinished time
+        var unfinished_time_index = 0;
+        for (var i = 0; i < task.times.length; i++) {
+          if(task.times[i].end_time==null){
+            unfinished_time_index = i;
+          }
+        }
+        if(task.times[unfinished_time_index].end_time==null){
+          //print(task.times[0].end_time);
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               //TimeWorkButtonWidget(task: task, notifyParent: refresh),
-              StopWorkTimeButtonWidget(task: task, notifyParent: refresh)
+              StopWorkTimeButtonWidget(task: task, notifyParent: refresh, unfinished_id: unfinished_time_index)
             ],
           );
         }else{
@@ -39,7 +48,7 @@ Widget TaskDetailButtonWidget(task, Function refresh) {
             children: [
               //TimeWorkButtonWidget(task: task, notifyParent: refresh),
               AddWorkTimeButtonWidget(task: task, notifyParent: refresh)
-            ],
+             ],
           );
         }
       }else{

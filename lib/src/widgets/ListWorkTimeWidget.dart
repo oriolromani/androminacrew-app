@@ -16,21 +16,22 @@ Widget ListWorkTimeWidget(context, Task task, int index, Function refresh){
       //String _pickedDateTime = date +" "+ _pickedTime.toString();
       DateTime _formatTime = DateTime.parse(_pickedDateTime);
       if(startTime){
-        TaskService().updateWorkTime(task, id, _formatTime.toString(), "");
-        refresh();
+        TaskService().updateWorkTime(task, id, _formatTime.toString(), "").then((value) => refresh());
       }else{
-        TaskService().updateWorkTime(task, id, "", _formatTime.toString());
-        refresh();
+        TaskService().updateWorkTime(task, id, "", _formatTime.toString()).then((value) => refresh());
       }
     }
   }
 
   if (task.times[index].end_time!=null) {
-    return Material(
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(bottom: BorderSide(color: Colors.grey))
+      ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("from: " + task.times[index].start_time.substring(11, 16)),
+          Text("from: " + task.times[index].start_time.substring(5, 19)),
           SizedBox(
             width: 5,
           ),
@@ -46,7 +47,7 @@ Widget ListWorkTimeWidget(context, Task task, int index, Function refresh){
             width: 20,
           ),
           Text(task.times[index].end_time != null ? " to: " +
-              task.times[index].end_time.substring(11, 16) : ''),
+              task.times[index].end_time.substring(05, 19) : ''),
           IconButton(
               icon: Icon(Icons.edit,
                   size: 15),
@@ -54,16 +55,35 @@ Widget ListWorkTimeWidget(context, Task task, int index, Function refresh){
                 selectedTime(context, task, task.times[index].id,
                     task.times[index].end_time, false);
               }
-          )
+          ),
+          SizedBox(
+            width: 20,
+          ),
+          IconButton(
+              icon: Icon(Icons.delete,
+                  color: Colors.red,
+                  size: 15),
+              onPressed: () {
+                TaskService().deleteWorkTime(task, task.times[index].id).then((value) => refresh());
+              }
+          ),
+
         ],
       ),
     );
   }else{
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Text("from: "+task.times[index].start_time.substring(11,16))
-      ],
+    return Container(
+      height: 30,
+      decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(color: Colors.grey)),
+          color: Colors.green,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text("Current Start: "+task.times[index].start_time.substring(11,19)),
+        ],
+      ),
     );
   }
 }

@@ -27,7 +27,7 @@ class TaskService {
 
   Future <Task> getTask(String id) async {
     dynamic _token = await FlutterSession().get("tokens");
-    String url = Api.baseUrl+'/tasks/'+id;
+    String url = Api.baseUrl+'/tasks/'+id+"/";
     var response = await http.get(Uri.parse(url), headers: {
       "Content-Type": "application/json; charset=utf-8",
       //"Access-Control-Allow-Origin": "*",
@@ -47,7 +47,7 @@ class TaskService {
     //print("ESTOY EN GET TASK Y IMPRIMO TOKENN");
     //print(_FCMtoken['token']);
     var formatter = new DateFormat('yyyy-MM-dd');
-    String url = Api.baseUrl+'/tasks/?start_date__gte='+formatter.format(DateTime.now())+'&ordering=start_date';
+    String url = Api.baseUrl+'/tasks/?date__gte='+formatter.format(DateTime.now())+'&ordering=start_date';
     var response = await http.get(Uri.parse(url), headers: {
       "Content-Type": "application/json; charset=utf-8",
       //"Access-Control-Allow-Origin": "*",
@@ -149,7 +149,6 @@ class TaskService {
       data['end_time']=endTime;
     }
     var body = json.encode(data);
-    print(body);
     dynamic _token = await FlutterSession().get("tokens");
     String url = Api.baseUrl+'/tasks/'+task.uid.toString()+'/work-time-creation/';
     var response = await http.post(Uri.parse(url),
@@ -159,10 +158,8 @@ class TaskService {
         },
         body: body)
         .timeout(const Duration(seconds: 15));
-    print(response.body);
     if (response.statusCode == 200) {
-      return Task.fromJson(
-          json.decode(utf8.decode(response.bodyBytes)));
+      return response.statusCode;
     } else {
       return 'ERROR: Could not update the status';
     }
@@ -187,10 +184,24 @@ class TaskService {
         },
         body: body)
         .timeout(const Duration(seconds: 15));
-    print(response.body);
     if (response.statusCode == 200) {
-      return Task.fromJson(
-          json.decode(utf8.decode(response.bodyBytes)));
+      return response.statusCode;
+    } else {
+      return 'ERROR: Could not update the status';
+    }
+  }
+
+  Future<dynamic> deleteWorkTime(Task task, int id) async {
+    dynamic _token = await FlutterSession().get("tokens");
+    String url = Api.baseUrl+'/tasks/'+task.uid.toString()+'/work-time/'+id.toString()+'/';
+    var response = await http.delete(Uri.parse(url),
+        headers: {
+          "Content-Type": "application/json",
+          'authorization': 'Token '+_token['token']
+        })
+        .timeout(const Duration(seconds: 15));
+    if (response.statusCode == 200) {
+      return response.statusCode;
     } else {
       return 'ERROR: Could not update the status';
     }

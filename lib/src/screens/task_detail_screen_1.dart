@@ -26,7 +26,7 @@ class _TaskDetailScreen1State extends State<TaskDetailScreen1> {
   @override
   void initState(){
     super.initState();
-    futureTask = TaskService().getTask(widget.task.uid);
+    //futureTask = TaskService().getTask(widget.task.uid);
   }
 
   refresh(){
@@ -36,14 +36,16 @@ class _TaskDetailScreen1State extends State<TaskDetailScreen1> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final futureTask = widget.task;
     const breakpoint = 600.0;
     if (screenWidth >= breakpoint){
       return Row(
         children: [
         SizedBox(width: 240, child: MyDrawer(),),
         Container(width:0.5,color: Colors.black),
-        Expanded(child:FutureBuilder<Task>(
-          future: TaskService().getTask(widget.task.uid),
+        FutureBuilder<Task>(
+          //future: TaskService().getTask(widget.task.uid),
+          future: this.futureTask,
           // function where you call your api
           builder: (BuildContext context,
               AsyncSnapshot<Task> snapshot) { // AsyncSnapshot<Your object type>
@@ -107,7 +109,7 @@ class _TaskDetailScreen1State extends State<TaskDetailScreen1> {
                               }
                           )*/
                           ),
-                          
+
                         ],
                       ),
                     ],
@@ -131,7 +133,7 @@ class _TaskDetailScreen1State extends State<TaskDetailScreen1> {
               );
             }
           },
-        ))]
+        )]
       );
     }else {
       return FutureBuilder<Task>(

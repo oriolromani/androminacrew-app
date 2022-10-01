@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
+
 import 'package:flutter_session/flutter_session.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'api.dart';
 import 'package:andromina_crew_app/src/datamodels/gig_model.dart';
-import 'package:intl/intl.dart';
 
 class GigService {
   static final SESSION = FlutterSession();
@@ -19,6 +18,7 @@ class GigService {
     }).timeout(const Duration(seconds: 15));
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(utf8.decode(response.bodyBytes));
+      //return jsonResponse.map((data) => new GigModel.fromJson(data)).toList();
       return jsonResponse.map((data) => new GigModel.fromJson(data)).toList();
     } else {
       throw Exception('Unexpected error occurred!');

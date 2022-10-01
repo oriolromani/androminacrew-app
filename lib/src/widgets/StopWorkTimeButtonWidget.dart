@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:andromina_crew_app/src/services/task_service.dart';
 import 'package:andromina_crew_app/src/datamodels/tasks_model.dart';
 
+import '../../responsive/responsive_layout.dart';
+import '../../responsive/task_detail/mobile_task_detail.dart';
+
 class StopWorkTimeButtonWidget extends StatefulWidget {
-  const StopWorkTimeButtonWidget({Key? key, required this.task, required this.notifyParent}) : super(key: key);
+  const StopWorkTimeButtonWidget({Key? key, required this.task, required this.notifyParent, required this.unfinished_id}) : super(key: key);
   final Task task;
   final Function notifyParent;
+  final int unfinished_id;
 
   @override
   _StopWorkTimeButtonWidgetState createState() => _StopWorkTimeButtonWidgetState();
@@ -33,10 +37,8 @@ class _StopWorkTimeButtonWidgetState extends State<StopWorkTimeButtonWidget> {
                       onPressed: () {
                         setState(() {
                           final now = new DateTime.now();
-                          final end_time = new DateTime(now.year,now.month, now.day, now.hour, now.minute);
-                          final index = widget.task.times.length-1;
-                          TaskService().updateWorkTime(widget.task,widget.task.times[index].id,"",end_time.toString());
-                          widget.notifyParent();
+                          final end_time = new DateTime(now.year,now.month, now.day, now.hour, now.minute, now.second).toUtc();
+                          TaskService().updateWorkTime(widget.task,widget.task.times[widget.unfinished_id].id,"",end_time.toString()).then((value) => widget.notifyParent());
                           Navigator.pop(context, 'Ok');
                         });
                       },
